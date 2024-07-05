@@ -1,0 +1,603 @@
+<!-- <div class="grid p-fluid"> -->
+    <!-- <div class="col-12 lg:col-12">
+        <div class="card">
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="lastname2">Site Name</label>
+                    <input pInputText  type="text" />
+                </div>
+                <div class="field col-12 md:col-2">
+                    <label htmlFor="lastname2">Capacity (HP)</label>
+                    <input pInputText  type="text" />
+                </div>
+                <div class="field col-12 md:col-2">
+                    <label htmlFor="lastname2">Date of Installation</label>
+						<span class="p-input-icon-right">
+						<p-calendar dateFormat="dd/mm/yy" [showButtonBar]="true"></p-calendar>
+						<i class="pi pi-calendar"></i>
+						</span>
+                </div>
+                <div class="field col-12 md:col-1">
+                    <label htmlFor="lastname2">Log (min)</label>
+                    <input pInputText  type="text" />
+                </div>
+                <div class="field col-12 md:col-1" style="margin-top: 2%;">
+                    <p-button styleClass="p-button-primary " label="Update"></p-button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    -->
+    <!-- <div class="col-12 lg:col-12"> -->
+    <!-- <div class="card" style="padding: 0!important;"> -->
+        <div class="grid" style="margin-left: 0rem!important;">
+
+            <!-- <div class="col-12 lg:col-2 xl:col-1">
+                <div class="livenow">
+                  <div></div>
+                  <h5>Live</h5>
+                </div>
+           </div> -->
+
+           <!-- <div class="col-12 lg:col-2 xl:col-7">
+            <h4 style=" margin-top: 32px;">Last Updated: {{lastUpdateTime}}</h4></div> -->
+           <!-- <div class="col-12 lg:col-1 xl:col-1">
+            <span >Run Time</span>
+            <div class="text-900 font-medium text-xl">2.8 Hrs</div>
+           </div>  -->
+
+           <div class="col-12 md:col-12" >
+            <div style="float: right;">
+                <p-dropdown *ngIf="this.selectedDealer?.meter_type=='ENTF'"  [options]="cities2" [(ngModel)]="selectedPhase" optionLabel="unit_name" (onChange)="setPhase($event)" placeholder="Select a Phase Type"></p-dropdown>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <p-autoComplete [(ngModel)]="selectedDealer" [ngModelOptions]="{standalone: true}" placeholder="Select a device" (onSelect)="setDevice()" [suggestions]="filteredDealer" (completeMethod)="filterDealer($event)" field="device" [dropdown]="true">
+                </p-autoComplete>
+            </div>
+            </div>
+            <div class="col-12 md:col-12" >
+
+                <div class="card">
+                    <div class="grid" style="margin-left: 0rem!important;">
+                        <div class="col-12 lg:col-6 xl:col-3">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(59, 8, 92) 0%, rgb(28, 9, 135) 50%, rgb(1, 4, 211) 100%);
+                            height:40px;" class="tiles__header">
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                            <!-- <span class="material-icons" style="position: absolute;padding-top: 3px;padding-left: 2px;">arrow_drop_down</span> -->
+                                <i class="pi pi-clock text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i>
+                            </div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                        <h5 style="color: white;"> TODAY ENERGY</h5></div>
+                            </div>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='single'">
+                                {{td_e1}} kWh
+                            </h3>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='two'">
+                                {{td_e2}} kWh
+                            </h3>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='three'">
+                                {{td_e3}} kWh
+                            </h3>
+                            </div>
+
+                        </div>
+                        <div class="col-12 lg:col-6 xl:col-3">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(125, 3, 35) 0%, rgb(156, 5, 5) 50%, rgb(171, 62, 8) 100%);
+                            height:40px;" class="tiles__header">
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                                <i class="pi pi-calendar text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                        <h5 style="color: white;"> MONTHLY ENERGY</h5></div>
+                            </div>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='single'">
+                                {{m_e1}} kWh
+                            </h3>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='two'">
+                                {{m_e2}} kWh
+                            </h3>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='three'">
+                                {{m_e3}} kWh
+                            </h3>
+                            </div>
+
+                        </div>
+                        <div class="col-12 lg:col-6 xl:col-3">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(49, 70, 13) 0%, rgb(87, 112, 15) 50%, rgb(130, 141, 6) 100%);
+                            height:40px;" class="tiles__header">
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                                <i class="pi pi-calendar-minus text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                        <h5 style="color: white;"> YEARLY ENERGY</h5></div>
+                            </div>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='single'">
+                                {{ye_e1}} kWh
+                            </h3>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='two'">
+                                {{ye_e2}} kWh
+                            </h3>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='three'">
+                                {{ye_e3}} kWh
+                            </h3>
+                            </div>
+
+                        </div>
+                        <div class="col-12 lg:col-6 xl:col-3">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(116, 5, 116) 0%, rgb(117, 6, 148) 50%, rgb(174, 7, 176) 100%);
+                            height:40px;"
+                            class="tiles__header"
+                            >
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                                <i class="pi pi-check-circle text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                            <h5 style="color: white;"> TOTAL ENERGY</h5></div>
+                            </div>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='single'">
+                                {{tot_e1}} kWh
+                            </h3>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='two'">
+                                {{tot_e2}} kWh
+                            </h3>
+                            <h3 style="text-align: center;" *ngIf="selectedPhase.unit=='three'">
+                                {{tot_e3}} kWh
+                            </h3>
+                            </div>
+
+                        </div>
+                        <!-- second row -->
+                            <div class="col-12 lg:col-6 xl:col-3" *ngIf="selectedPhase.unit=='single'">
+                                <div class="card mb-0" style="
+                                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                                transition: 0.3s;
+                                width: 100%;
+                                border-radius: 10px;
+                                padding: 0px!important;">
+                                <div style="
+                                border-radius: 10px 10px 0 0;
+                                background:linear-gradient(15deg, rgb(6, 103, 123) 0%, rgb(9, 157, 170) 50%, rgb(3, 211, 183) 100%);
+                                height:40px;" class="tiles__header">
+                                <div style="margin: 10px;
+                                position: absolute;
+                                height: 23px;
+                                width: 23px;">
+                                    <i class="pi pi-bolt text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                                <div style="padding-left: 40px; position: absolute;">
+                            <h5 style="color: white;"> VOLTAGE OF R</h5></div>
+                                </div>
+                                <h3 style="text-align: center;">
+                                    {{EnergyData?.r?EnergyData?.r:0.00}} V
+                                </h3>
+                                </div>
+
+                            </div>
+                            <div class="col-12 lg:col-6 xl:col-3" *ngIf="selectedPhase.unit=='two'">
+                                <div class="card mb-0" style="
+                                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                                transition: 0.3s;
+                                width: 100%;
+                                border-radius: 10px;
+                                padding: 0px!important;">
+                                <div style="
+                                border-radius: 10px 10px 0 0;
+                                background:linear-gradient(15deg, rgb(6, 103, 123) 0%, rgb(9, 157, 170) 50%, rgb(3, 211, 183) 100%);
+                                height:40px;" class="tiles__header">
+                                <div style="margin: 10px;
+                                position: absolute;
+                                height: 23px;
+                                width: 23px;">
+                                    <i class="pi pi-bolt text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                                <div style="padding-left: 40px; position: absolute;">
+                            <h5 style="color: white;">VOLTAGE OF Y</h5></div>
+                                </div>
+                                <h3 style="text-align: center;">
+                                    {{EnergyData?.y?EnergyData?.y:0.00}} V
+                                </h3>
+                                </div>
+
+                            </div>
+                            <div class="col-12 lg:col-6 xl:col-3" *ngIf="selectedPhase.unit=='three'">
+                                <div class="card mb-0" style="
+                                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                                transition: 0.3s;
+                                width: 100%;
+                                border-radius: 10px;
+                                padding: 0px!important;">
+                                <div style="
+                                border-radius: 10px 10px 0 0;
+                                background:linear-gradient(15deg, rgb(6, 103, 123) 0%, rgb(9, 157, 170) 50%, rgb(3, 211, 183) 100%);
+                                height:40px;" class="tiles__header">
+                                <div style="margin: 10px;
+                                position: absolute;
+                                height: 23px;
+                                width: 23px;">
+                                    <i class="pi pi-bolt text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                                <div style="padding-left: 40px; position: absolute;">
+                            <h5 style="color: white;"> VOLTAGE OF B</h5></div>
+                                </div>
+                                <h3 style="text-align: center;">
+                                    {{EnergyData?.b?EnergyData?.b:0.00}} V
+                                </h3>
+                                </div>
+
+                            </div>
+                        <!-- voltage -->
+
+                        <div class="col-12 lg:col-6 xl:col-3" *ngIf="selectedPhase.unit=='single'">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(43, 77, 29) 0%, rgb(47, 114, 16) 50%, rgb(51, 188, 5) 100%);
+                            height:40px;" class="tiles__header">
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                                <i class="pi pi-bolt text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                        <h5 style="color: white;">VOLTAGE OF R-Y</h5></div>
+                            </div>
+                            <h3 style="text-align: center;">
+                                {{EnergyData?.r_y?EnergyData?.r_y:0.00}} V
+                            </h3>
+                            </div>
+
+                        </div>
+                        <div class="col-12 lg:col-6 xl:col-3" *ngIf="selectedPhase.unit=='two'">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(43, 77, 29) 0%, rgb(47, 114, 16) 50%, rgb(51, 188, 5) 100%);
+                            height:40px;" class="tiles__header">
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                                <i class="pi pi-bolt text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                        <h5 style="color: white;">VOLTAGE OF Y-B</h5></div>
+                            </div>
+                            <h3 style="text-align: center;">
+                                {{EnergyData?.y_b?EnergyData?.y_b:0.00}} V
+                            </h3>
+                            </div>
+
+                        </div>
+                        <div class="col-12 lg:col-6 xl:col-3" *ngIf="selectedPhase.unit=='three'">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(43, 77, 29) 0%, rgb(47, 114, 16) 50%, rgb(51, 188, 5) 100%);
+                            height:40px;" class="tiles__header">
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                                <i class="pi pi-bolt text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                        <h5 style="color: white;"> VOLTAGE OF B-R</h5></div>
+                            </div>
+                            <h3 style="text-align: center;">
+                                {{EnergyData?.b_r?EnergyData?.b_r:0.00}} V
+                            </h3>
+                            </div>
+
+                        </div>
+                        <!-- VOLTAGE I-I -->
+                        <div class="col-12 lg:col-6 xl:col-3">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(104, 48, 86) 0%, rgb(136, 20, 95) 50%, rgb(182, 16, 124) 100%);
+                            height:40px;" class="tiles__header">
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                                <i class="pi pi-bolt text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                        <h5 style="color: white;"> CURRENT</h5></div>
+                            </div>
+                            <h3 style="text-align: center;">
+                                {{selectedPhase.unit=='single'?EnergyData?.curr1?EnergyData?.curr1:0:
+                                selectedPhase.unit=='two'?EnergyData?.curr2:
+                                selectedPhase.unit=='three'?EnergyData?.curr3:0}} A
+                            </h3>
+                            </div>
+
+                        </div>
+                        <div class="col-12 lg:col-6 xl:col-3">
+                            <div class="card mb-0" style="
+                            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                            transition: 0.3s;
+                            width: 100%;
+                            border-radius: 10px;
+                            padding: 0px!important;">
+                            <div style="
+                            border-radius: 10px 10px 0 0;
+                            background:linear-gradient(15deg, rgb(53, 3, 92) 0%, rgb(73, 4, 143) 50%, rgb(83, 4, 185) 100%);
+                            height:40px;" class="tiles__header">
+                            <div style="margin: 10px;
+                            position: absolute;
+                            height: 23px;
+                            width: 23px;">
+                                <i class="pi pi-bolt text-white-600 text-xl" style="position: absolute;padding-top: 3px;padding-left: 2px;"></i></div>
+
+                            <div style="padding-left: 40px; position: absolute;">
+                        <h5 style="color: white;"> ACTIVE POWER</h5></div>
+                            </div>
+                            <h3 style="text-align: center;">
+                                {{selectedPhase.unit=='single'?EnergyData?.activep1?EnergyData?.activep1:0:
+                                selectedPhase.unit=='two'?EnergyData?.activep2:
+                                selectedPhase.unit=='three'?EnergyData?.activep3:0}} kW
+                            </h3>
+                            </div>
+
+                        </div>
+                        <div class="grid" style="margin-left: 0rem!important;margin-top: 50px; width: 100%!important;">
+                                <div class="col-12 lg:col-6 xl:col-6">
+                                    <div class="card mb-0 xcard" style="height: 476px;">
+                                    <!-- <div class=" card "> -->
+                                        <div id="chart" >
+                                            <h4>Weekly Energy Used</h4>
+                                            <apx-chart
+                                                [series]="chartOptions?.series"
+                                                [chart]="chartOptions?.chart"
+                                                [labels]="chartOptions?.labels"
+                                                [responsive]="chartOptions?.responsive"
+                                            ></apx-chart>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 lg:col-6 xl:col-6">
+
+                                        <div class="card" style="height: 476px; overflow-x: hidden;
+                                        overflow-y: auto;">
+                                            <h4 class="card-para">Emission Type</h4>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-bolt text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>Apparent Power</p>
+                                                </div>
+
+                                                <p class="unit">{{selectedPhase.unit=='single'?EnergyData?.apparentp1?EnergyData?.apparentp1:0                                                :
+                                                selectedPhase.unit=='two'?EnergyData?.apparentp2?EnergyData?.apparentp2:0:
+                                                selectedPhase.unit=='three'?EnergyData?.apparentp3?EnergyData?.apparentp3:0:0}} kVA</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-chart-bar text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>Power Factor</p>
+                                                </div>
+
+                                                <p class="unit">{{selectedPhase.unit=='single'?EnergyData?.pf1?EnergyData.pf1:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.pf2?EnergyData?.pf2:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.pf3?EnergyData?.pf3:0:0}}</p>
+                                            </div>
+
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-percentage text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>Frequency</p>
+                                                </div>
+
+                                                <p class="unit">{{selectedPhase.unit=='single'?EnergyData?.freq?EnergyData?.freq:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.freq?EnergyData?.freq:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.freq?EnergyData?.freq:0:0}} Hz</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-window-maximize text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>Reactivepower</p>
+                                                </div>
+
+                                                <p class="unit">{{selectedPhase.unit=='single'?EnergyData?.reactvp1?EnergyData?.reactvp1:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.reactvp2?EnergyData?.reactvp2:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.reactvp3?EnergyData?.reactvp3:0:0}} kVAR</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-sync text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>Average pf</p>
+                                                </div>
+
+                                                <p class="unit">{{avgPF?avgPF: 0 }}</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-hourglass text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>{{selectedPhase.unit=='single'?"Average Voltage R":selectedPhase.unit=='two'?"Average Voltage Y":"Average Voltage B"}}</p>
+                                                </div>
+
+                                                <p class="unit">{{selectedPhase.unit=='single'?EnergyData?.avaragevln?EnergyData?.avaragevln:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.avaragevln?EnergyData?.avaragevln:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.avaragevln?EnergyData?.avaragevln:0:0}} V</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-cloud-upload text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>{{selectedPhase.unit=='single'?"Average Voltage R_Y":selectedPhase.unit=='two'?"Average Voltage Y_B":"Average Voltage B_R"}}</p>
+                                                </div>
+
+                                                <p class="unit">{{selectedPhase.unit=='single'?EnergyData?.avaragevll?EnergyData?.avaragevll:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.avaragevll?EnergyData?.avaragevll:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.avaragevll?EnergyData?.avaragevll:0:0}} V</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-sliders-v text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>Avarage current </p>
+                                                </div>
+
+                                                <p class="unit">{{selectedPhase.unit=='single'?EnergyData?.avaragecurrent?EnergyData?.avaragecurrent:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.avaragecurrent?EnergyData?.avaragecurrent:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.avaragecurrent?EnergyData?.avaragecurrent:0:0}} A</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-sitemap text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>TOTAL kVA</p>
+                                                </div>
+
+                                                <p class="unit"> {{selectedPhase.unit=='single'?EnergyData?.totkva?EnergyData?.totkva:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.totkva?EnergyData?.totkva:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.totkva?EnergyData?.totkva:0:0}} kVA</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-arrows-alt text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>TOTAL kW</p>
+                                                </div>
+
+                                                <p class="unit"> {{selectedPhase.unit=='single'?EnergyData?.totkw?EnergyData?.totkw:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.totkw?EnergyData?.totkw:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.totkw?EnergyData?.totkw:0:0}} kW</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-slack text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>TOTAL kVAR</p>
+                                                </div>
+
+                                                <p class="unit"> {{selectedPhase.unit=='single'?EnergyData?.totkvar?EnergyData?.totkvar:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.totkvar?EnergyData?.totkvar:0:
+                                                    selectedPhase.unit=='three'?EnergyData?.totkvar?EnergyData?.totkvar:0:0}} kVAR</p>
+                                            </div>
+                                            <div class="subCard">
+                                                <div class="subcard-icon">
+                                                    <div class="icon">
+                                                        <i class="pi pi-clock text-blue-600 text-xl"></i>
+                                                    </div>
+                                                    <p>Run Hour</p>
+                                                </div>
+
+                                                <p class="unit">{{selectedPhase.unit=='single'?EnergyData?.runhr?EnergyData.runhr:0:
+                                                    selectedPhase.unit=='two'?EnergyData?.runhr:
+                                                    selectedPhase.unit=='three'?EnergyData?.runhr:0}}</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                            </div>
+
+
+                        <!-- </div> -->
+                        </div>
+
+                </div>
+            </div>
+<div class="loader" *ngIf="spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div><div class="overlay" *ngIf="spinner"></div>
+
+        </div>
+    <!-- </div> -->
+
+
+
+
+
+    <!-- </div>
+
+</div> -->
