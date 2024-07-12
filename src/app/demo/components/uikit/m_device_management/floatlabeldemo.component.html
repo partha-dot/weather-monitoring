@@ -1,4 +1,4 @@
-<!-- 
+<!--
 <div class="col-12 lg:col-6 xl:col-12">
 	<h4>Device Information</h4>
 	<div class="grid" style="margin-left: 0rem!important;">
@@ -14,7 +14,7 @@
 							<b>OFFLINE</b>&nbsp;&nbsp;<p-badge [value]="10" severity="danger"></p-badge>
                     </div>
                 </div>
-						
+
 			</div>
 		</div>
 		<div class="col-12 lg:col-6 xl:col-4" *ngIf="this.loginType=='pro'">
@@ -60,7 +60,7 @@
 
 <div class="col-12 lg:col-6 xl:col-12">
 
-	
+
 <div class="card">
     <p-toast></p-toast>
     <h5 class="m-2">Manage Device</h5>
@@ -77,7 +77,7 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [showCurrentPageReport]="true"
     >
-    
+
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <b class="text-900 font-medium text-xl">Total Device : {{ stockList ? stockList.length : 0 }}</b>|
@@ -96,13 +96,13 @@
                 <th pSortableColumn="device">Device<p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="device_name">Device Name <p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="device_type">Device Type <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="meter_type">Meter Type <p-sortIcon field="name"></p-sortIcon></th>
+                <!-- <th pSortableColumn="meter_type">Meter Type <p-sortIcon field="name"></p-sortIcon></th> -->
                 <!-- <th pSortableColumn="price">Device ID <p-sortIcon field="price"></p-sortIcon></th> -->
                 <th pSortableColumn="model">Model<p-sortIcon field="price"></p-sortIcon></th>
                 <th pSortableColumn="lat" >Latitude <p-sortIcon field="category"></p-sortIcon></th>
                 <th pSortableColumn="lon" >Longitude <p-sortIcon field="category"></p-sortIcon></th>
                 <th pSortableColumn="imei_no" >IMEI NO <p-sortIcon field="category"></p-sortIcon></th>
-				<th pSortableColumn="energy_data_created_at" >Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+				<th pSortableColumn="weather_data_created_at" >Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
                 <th>Edit</th>
             </tr>
         </ng-template>
@@ -111,20 +111,20 @@
                <td>{{rowIndex+1}}</td>
                 <td>{{ product.device }}</td>
                 <td>{{ product.device_name }}</td>
-                <td>{{ product.device_type=="EN"?"Energy Meter":"Water Meter" }}</td>
-                <td>{{ product.meter_type=="ENSF"?"Single Phase":"Three Phase" }}</td>
+                <td>{{ product.device_type=="EN"?"Weather":"Water Meter" }}</td>
+                <!-- <td>{{ product.meter_type=="ENSF"?"Single Phase":"Three Phase" }}</td> -->
                 <!-- <td>{{ product.device_name}}</td> -->
                 <td>{{ product.model }}</td>
                 <td>{{ product.lat }}</td>
                 <td>{{ product.lon }}</td>
                 <td>{{ product.imei_no }}</td>
-                <!-- <td>{{ product.energy_data_created_at?"Offline":"Online" }}</td> -->
+                <!-- <td>{{ product.weather_data_created_at?"Offline":"Online" }}</td> -->
 				<th style="text-align: center;">
 					<p-badge [value]="product.status=='Y'?'Online':'Offline'" [severity]="product.status=='Y'?'success':'danger'"></p-badge>
 				</th>
                 <td style="text-align: center;">
 					<button type="button" pButton pRipple icon="pi pi-pencil" (click)="editProduct(product)"></button>
-				</td> 
+				</td>
                 <!-- <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteProduct(product.device_id)"></button>
@@ -150,7 +150,7 @@
             <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
         </div> -->
 
-        
+
 
         <div class="field">
             <label class="mb-3">Status</label>
@@ -206,7 +206,7 @@
                 <label for="name"><span style="color: red;">*</span>Device</label>
                 <input type="text" pInputText id="name" formControlName="deviceId" required autofocus />
                 <small *ngIf="addDevice.get('deviceId')?.errors?.['minlength'] || addDevice.get('deviceId')?.errors?.['maxlength']">
-                    <span style="color: red;">Device must be 10 characters long.</span> 
+                    <span style="color: red;">Device must be 10 characters long.</span>
                 </small>
             </div>
             <div class="col-6 lg:col-6 xl:col-6">
@@ -223,7 +223,7 @@
                       </option>
                   </select>
             </div>
-            <div class="col-6 lg:col-6 xl:col-6">
+            <!-- <div class="col-6 lg:col-6 xl:col-6">
                 <label htmlFor="firstname2"><span style="color: red;">*</span>Meter Type</label>
                 <select formControlName="meter_type" style="width: 100%;height: 42px;border-color: lightgray;border-radius: 5px;">
                     <option [value]="0" disabled selected>Select an option</option>
@@ -231,7 +231,7 @@
                         {{option2.name}}
                       </option>
                   </select>
-            </div>
+            </div> -->
             <div class="col-6 lg:col-6 xl:col-6">
                 <label for="name"><span style="color: red;">*</span>Latitude</label>
                 <input type="text" pInputText id="name" formControlName="lat" required autofocus />
@@ -251,7 +251,7 @@
                 </small>
             </div>
         </form>
-        
+
 
     </ng-template>
 
@@ -262,7 +262,7 @@
 </p-dialog>
 
 
-		
+
 </div>
 <div class="loader" *ngIf="spinner">
     <div></div>

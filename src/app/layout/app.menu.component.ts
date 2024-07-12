@@ -23,9 +23,9 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-th-large',
                         items: [
                                 {
-                                    label: 'Energy',
+                                    label: 'Weather',
                                     icon: 'pi pi-bolt',
-                                    routerLink: ['/app/outlet/energy']
+                                    routerLink: ['/app/outlet/weather']
                                 },
                                 // {
                                 //     label: 'UPS',
@@ -86,7 +86,7 @@ export class AppMenuComponent implements OnInit {
                                 {
                                     label: 'Weather',
                                     icon: 'pi pi-cloud',
-                                    routerLink: ['/app/outlet/energy']
+                                    routerLink: ['/app/outlet/weather']
                                 },
                                 // {
                                 //     label: 'UPS',

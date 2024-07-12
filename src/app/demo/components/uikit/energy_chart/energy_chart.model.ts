@@ -1,5 +1,5 @@
-export interface IEnergyUsed{
-    energy_data_id: number
+export interface IWeatherUsed{
+    weather_data_id: number
     device_id: number
     do_channel: number
     e1: number

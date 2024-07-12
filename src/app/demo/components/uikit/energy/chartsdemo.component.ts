@@ -179,7 +179,7 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     "unit": "single"}
     selectedDevice:any;
     loginType:string=localStorage.getItem('loginType');
-    EnergyData:any=[]
+    WeatherData:any=[]
     avgPF:number;
     m_e1:number=0;
     m_e2:number=0;
@@ -260,7 +260,7 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
             const AllData: any = JSON.parse(jsonString);
             console.log(AllData);
             this.wsData=AllData.lastdata;
-            const energyData: WeatherData = AllData.lastdata;
+            const weatherData: WeatherData = AllData.lastdata;
             // this.weeklyPaiData = AllData.lastdata_weekdata;
             this.spinner=false;
             // if(this.weeklyPaiData?.length>0){
@@ -270,12 +270,12 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
             this.m_e2=0
             this.m_e3=0
             this.avgPF=0
-            console.log(energyData);
+            console.log(weatherData);
             console.log(this.weeklyPaiData);
-            this.EnergyData=energyData
-            const m_e1=this.EnergyData.e1 - this.EnergyData.e1_past_month
-            const m_e2=this.EnergyData.e2 - this.EnergyData.e2_past_month
-            const m_e3=this.EnergyData.e3 - this.EnergyData.e3_past_month
+            this.WeatherData=weatherData
+            const m_e1=this.WeatherData.e1 - this.WeatherData.e1_past_month
+            const m_e2=this.WeatherData.e2 - this.WeatherData.e2_past_month
+            const m_e3=this.WeatherData.e3 - this.WeatherData.e3_past_month
             this.m_e1=parseFloat(m_e1?m_e1.toFixed(2):'0');
             this.m_e2=parseFloat(m_e2?m_e2.toFixed(2):'0');
             this.m_e3=parseFloat(m_e3?m_e3.toFixed(2):'0');
@@ -283,9 +283,9 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
             this.td_e1=0
             this.td_e2=0
             this.td_e3=0
-            const td_e1=this.EnergyData.e1 - this.EnergyData.e1_yesterday
-            const td_e2=this.EnergyData.e2 - this.EnergyData.e2_yesterday
-            const td_e3=this.EnergyData.e3 - this.EnergyData.e3_yesterday
+            const td_e1=this.WeatherData.e1 - this.WeatherData.e1_yesterday
+            const td_e2=this.WeatherData.e2 - this.WeatherData.e2_yesterday
+            const td_e3=this.WeatherData.e3 - this.WeatherData.e3_yesterday
             this.td_e1=parseFloat(td_e1?td_e1.toFixed(2):'0');
             this.td_e2=parseFloat(td_e2?td_e2.toFixed(2):'0');
             this.td_e3=parseFloat(td_e3?td_e3.toFixed(2):'0');
@@ -293,9 +293,9 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
             this.ye_e1=0
             this.ye_e2=0
             this.ye_e3=0
-            const ye_e1=this.EnergyData.e1 - this.EnergyData.e1_past_year
-            const ye_e2=this.EnergyData.e2 - this.EnergyData.e2_past_year
-            const ye_e3=this.EnergyData.e3 - this.EnergyData.e3_past_year
+            const ye_e1=this.WeatherData.e1 - this.WeatherData.e1_past_year
+            const ye_e2=this.WeatherData.e2 - this.WeatherData.e2_past_year
+            const ye_e3=this.WeatherData.e3 - this.WeatherData.e3_past_year
             this.ye_e1=parseFloat(ye_e1?ye_e1.toFixed(2):'0');
             this.ye_e2=parseFloat(ye_e2?ye_e2.toFixed(2):'0');
             this.ye_e3=parseFloat(ye_e3?ye_e3.toFixed(2):'0');
@@ -303,13 +303,13 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
             this.tot_e1=0
             this.tot_e2=0
             this.tot_e3=0
-            // const tot_e1=this.EnergyData.e1 - this.EnergyData.e1_past_month
-            // const tot_e2=this.EnergyData.e2 - this.EnergyData.e2_past_month
-            // const tot_e3=this.EnergyData.e3 - this.EnergyData.e3_past_month
-            this.tot_e1=parseFloat(this.EnergyData?.e1?this.EnergyData?.e1.toFixed(2):0);
-            this.tot_e2=parseFloat(this.EnergyData?.e2?this.EnergyData?.e2.toFixed(2):0);
-            this.tot_e3=parseFloat(this.EnergyData?.e3?this.EnergyData?.e3.toFixed(2):0);
-            this.avgPF=this.EnergyData.pf1+this.EnergyData.pf2+this.EnergyData.pf3
+            // const tot_e1=this.WeatherData.e1 - this.WeatherData.e1_past_month
+            // const tot_e2=this.WeatherData.e2 - this.WeatherData.e2_past_month
+            // const tot_e3=this.WeatherData.e3 - this.WeatherData.e3_past_month
+            this.tot_e1=parseFloat(this.WeatherData?.e1?this.WeatherData?.e1.toFixed(2):0);
+            this.tot_e2=parseFloat(this.WeatherData?.e2?this.WeatherData?.e2.toFixed(2):0);
+            this.tot_e3=parseFloat(this.WeatherData?.e3?this.WeatherData?.e3.toFixed(2):0);
+            this.avgPF=this.WeatherData.pf1+this.WeatherData.pf2+this.WeatherData.pf3
             this.avgPF=parseFloat(this.avgPF?this.avgPF.toFixed(2):'0');
             this.spinner=false;
             // Handle received message here

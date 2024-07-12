@@ -7,7 +7,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    
+
     styleUrls: ['./login.component.css'],
     // styles: [`
     //     :host ::ng-deep .pi-eye,
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit{
     ct:any
     project = {value: 0};
 
-    constructor( private messageService: MessageService, public layoutService: LayoutService,private apiService: ApiService,private fb: FormBuilder,private router: Router) { 
+    constructor( private messageService: MessageService, public layoutService: LayoutService,private apiService: ApiService,private fb: FormBuilder,private router: Router) {
         this.userForm = this.fb.group({
             // Define your form controls here
             mail: ['', Validators.required],
@@ -40,10 +40,10 @@ export class LoginComponent implements OnInit{
         localStorage.clear();
         this.ct=this.userForm.controls
     }
-    
+
     loginCall() {
       // localStorage.setItem('loginType',this.project.value==1?"demo":"pro");
-      
+
       this.project.value
       debugger
         const requestData = {
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit{
               const data=response.data;
               const userdata=data.user_data;
               console.log(userdata);
-              
+
               this.apiService.token=data.token;
               localStorage.setItem('token',data.token);
               localStorage.setItem('user',userdata.user_name);
@@ -66,19 +66,19 @@ export class LoginComponent implements OnInit{
               localStorage.setItem('email',userdata.user_email);
               localStorage.setItem('u_type',userdata.user_type);
               localStorage.setItem('c_id',userdata.client_id);
-              
-              this.router.navigate(['/app/outlet/energy']);
+
+              this.router.navigate(['/app/outlet/weather']);
             }
             // q1e3
             else{
                   this.spinner=false;
                   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Wrong username or password !!', life: 3000 });
-              
+
             }
             console.log('Response:', response);
             // Handle response here
           },
-          (error) => { 
+          (error) => {
         if(error.status=='401'){
           this.router.navigate(['/']);
           debugger

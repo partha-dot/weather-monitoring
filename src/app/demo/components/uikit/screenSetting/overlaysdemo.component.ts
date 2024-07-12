@@ -39,7 +39,7 @@ export class OverlaysDemoComponent implements OnInit {
     constructor(private router: Router,private http:HttpClient,private fb: FormBuilder,private api:ApiService,private productService: ProductService, private confirmationService: ConfirmationService, private messageService: MessageService) {
         this.formGroup = this.fb.group({
             id_view_organization:[0, Validators.required],
-            gv_energy_used: [false, Validators.required],
+            gv_weather_used: [false, Validators.required],
             gv_voltage:[false, Validators.required],
             gv_current:[false, Validators.required],
             gv_power:[false, Validators.required],
@@ -96,7 +96,7 @@ export class OverlaysDemoComponent implements OnInit {
                         
                         this.formGroup.patchValue({
                             id_view_organization:editData.id_view_organization,
-                            gv_energy_used: editData.gv_energy_used=="Y"?true:false,
+                            gv_weather_used: editData.gv_weather_used=="Y"?true:false,
                             gv_voltage:editData.gv_voltage=="Y"?true:false,
                             gv_current:editData.gv_current=="Y"?true:false,
                             gv_power:editData.gv_power=="Y"?true:false,
@@ -113,7 +113,7 @@ export class OverlaysDemoComponent implements OnInit {
                         this.editMode=false;
                         this.formGroup.patchValue({
                             id_view_organization:0,
-                            gv_energy_used:false,
+                            gv_weather_used:false,
                             gv_voltage:false,
                             gv_current:false,
                             gv_power:false,
@@ -184,7 +184,7 @@ export class OverlaysDemoComponent implements OnInit {
                       "id_view_organization": this.editMode?this.ct.id_view_organization.value:0,
                       "user_type": "U",
                       "organization_id": this.selectedOrganization.organization_id,
-                      "gv_energy_used": this.ct.gv_energy_used.value?"Y":"N",
+                      "gv_weather_used": this.ct.gv_weather_used.value?"Y":"N",
                       "gv_voltage":  this.ct.gv_voltage.value?"Y":"N",
                       "gv_current":  this.ct.gv_current.value?"Y":"N",
                       "gv_power":  this.ct.gv_power.value?"Y":"N",

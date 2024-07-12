@@ -12,18 +12,18 @@ import { ApiService } from 'src/app/demo/service/api.service';
     providers: [MessageService, ConfirmationService]
 })
 export class FileDemo2Component implements OnInit {
-  
+
     // countries=[]
     countries1 = [
-        {id: 'b1', name: 'Energy Usage and Billing', link:'/usr' },
+        {id: 'b1', name: 'Weather Usage and Billing', link:'/usr' },
         {id: 'b2', name: 'Billing & Income', link:'/usr' },
         {id: 'b3', name: 'Monthly bill forecast', link:'/usr'  },
         {id: 'b4', name: 'Multi months bill report', link:'/usr'  },
         {id: 'b5', name: 'Battery Simulation and Billing Analysis', link:'/usr'  }
       ];
       countries2 = [{
-        id: 1, name: 'Hourly Energy Consumption', link:'/usr' },
-        {id: 2, name: 'Energy consumption during selected hours', link:'/usr' },
+        id: 1, name: 'Hourly Weather Consumption', link:'/usr' },
+        {id: 2, name: 'Weather consumption during selected hours', link:'/usr' },
         {id: 3, name: 'Comparison Analysis for Different Meters', link:'/usr'  },
        { id: 4, name: 'Comparison Analysis on Time Basis', link:'/usr'  },
        { id: 5, name: 'Comprehensive Analysis', link:'/usr'  }
@@ -57,10 +57,10 @@ export class FileDemo2Component implements OnInit {
       constructor(private router: Router,private fb: FormBuilder,private http:HttpClient ,
 
         private messageService: MessageService, private confirmationService: ConfirmationService,private api:ApiService){
-    
+
       }
       ngOnInit(): void {
-        this.getDevice();   
+        this.getDevice();
       }
       logMockData(data:any){
         console.log(data)
@@ -91,8 +91,8 @@ export class FileDemo2Component implements OnInit {
         console.log(i.value);
         debugger
       }
-      
-      navigate(location: any){ 
+
+      navigate(location: any){
         debugger
         // this.router.navigate(['/billingreport']);
         // this.router.navigate(location.target.value);
@@ -116,7 +116,7 @@ export class FileDemo2Component implements OnInit {
                 this.deviceList=this.data1.data
 
       },
-      (error) => { 
+      (error) => {
         if(error.status=='401'){
           this.router.navigate(['/']);
           debugger
