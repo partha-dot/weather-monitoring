@@ -5,7 +5,7 @@
                 <div class="field col-12 md:col-3">
                     <label htmlFor="lastname2">Site Name</label>
                     <input pInputText  type="text" />
-                </div>  
+                </div>
                 <div class="field col-12 md:col-2">
                     <label htmlFor="lastname2">Capacity (HP)</label>
                     <input pInputText  type="text" />
@@ -24,9 +24,9 @@
                 <div class="field col-12 md:col-1" style="margin-top: 2%;">
                     <p-button styleClass="p-button-primary " label="Update"></p-button>
                 </div>
-                
+
             </div>
-           
+
         </div>
 
     </div>
@@ -34,7 +34,7 @@
     <div class="col-12 lg:col-12">
     <div class="card" style="padding: 0!important;">
         <div class="grid" style="margin-left: 0rem!important;">
-           
+
             <!-- <div class="col-12 lg:col-2 xl:col-1">
                 <div class="livenow">
                   <div></div>
@@ -56,7 +56,7 @@
             </p-autoComplete>
             </div>
             <div class="field col-12 md:col-12" >
-                
+
 <div >
     <p-tabView styleClass="tabview-custom" style="width: 100%!important;">
         <p-tabPanel >
@@ -67,7 +67,7 @@
                 <span></span>
                 <span  style="font-size: large!important;">Live Data</span>
             </ng-template>
-            
+
         <div class="grid" style="margin-left: 0rem!important;">
             <div class="col-12 lg:col-6 xl:col-6">
                 <div class="card mb-0 bg-blue-100" >
@@ -142,7 +142,7 @@
                 </div>
             </div>
             </div>
-            
+
         </p-tabPanel>
         <p-tabPanel header="Header II" *ngIf="this.loginType=='pro'">
             <ng-template pTemplate="header" style="width: 30%;">
@@ -155,9 +155,9 @@
                 <div class="col-12 lg:col-6 xl:col-12">
                     <h4>Map View</h4>
                     <div class="card">
-                    <img src="assets/demo/images/access/map.png" alt="logo" class="energy">
+                    <img src="assets/demo/images/access/map.png" alt="logo" class="weather">
                     </div>
-                    
+
                 </div>
                 <div class="col-12 lg:col-6 xl:col-6">
                     <div class="card" >
@@ -168,8 +168,8 @@
                     <p>Last Maintenance &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  23-02-2023  12:23:24</p><hr>
                     <p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
                     </div>
-                    
-                         
+
+
                 </div>
                 <div class="col-12 lg:col-6 xl:col-6">
                     <div class="card" >
@@ -180,24 +180,24 @@
                         <div class="flex justify-content-between mb-3" >
                             <table >
 
-                                <tr > 
+                                <tr >
                                    <th style="text-align: left;"><i class="pi pi-info-circle text-yellow-500 text-xl">&nbsp;&nbsp;</i> High{{alert_type}} Alert</th>
                                    <th>0</th>
                                 </tr>
-                                
-                                <tr > 
+
+                                <tr >
                                    <th style="text-align: left;"><i class="pi pi-info-circle text-red-500 text-xl">&nbsp;&nbsp;</i>Cretical High{{alert_type}} Alert</th>
                                    <th>1</th>
                                 </tr>
-                                <tr > 
+                                <tr >
                                     <th style="text-align: left;"><i class="pi pi-info-circle text-yellow-500 text-xl">&nbsp;&nbsp;</i> Low{{alert_type}} Alert</th>
                                     <th>0</th>
                                  </tr>
-                                 <tr > 
+                                 <tr >
                                     <th style="text-align: left;"><i class="pi pi-info-circle text-red-500 text-xl">&nbsp;&nbsp;</i> Cretical Low{{alert_type}} Alert</th>
                                     <th>1</th>
                                  </tr>
-                                
+
                                 </table>
                             <!-- <div>
                                 <span class="block mb-3 customeX">Alert Type</span>
@@ -220,8 +220,8 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 </div>
         </p-tabPanel>
         <p-tabPanel header="Header III" *ngIf="this.loginType=='pro'">
@@ -231,12 +231,12 @@
                 <span  style="font-size: large!important;">Chart</span>
             </ng-template>
             <div class="grid" style="margin-left: 0rem!important;">
-                
+
                 <div class="col-12 lg:col-6 xl:col-8">
                     <div class="card" >
                         <h5>BATTERY</h5>
                             <p-chart type="bar" [data]="data" [options]="lineOptions"></p-chart>
-                        
+
                     </div>
                 </div>
                 <div class="col-12 lg:col-6 xl:col-4">
@@ -245,13 +245,13 @@
                         <p-chart type="doughnut" [data]="donatdata" [options]="chartOptions" ></p-chart>
                     </div>
                 </div>
-                
+
                 <div class="col-12 lg:col-6 xl:col-6">
                     <div class="card">
                         <h5>FUEL</h5>
                         <p-chart type="bar" [data]="polarData" [options]="options"></p-chart>
                     </div>
-                    
+
                 </div>
                 <div class="col-12 lg:col-6 xl:col-6">
                     <div class="card" >
@@ -263,24 +263,24 @@
                     <div class="card" >
                        <b style="font-size: large;">Month</b>&nbsp;&nbsp;&nbsp;&nbsp; <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
                        &nbsp;&nbsp;&nbsp;<b  style="font-size: large;">Day (Fuel Usage)</b>
-                      
+
                         <p-chart type="bar" [data]="barData" [options]="barOptions" ></p-chart>
                     </div>
                 </div>
-                
+
                 </div>
         </p-tabPanel>
     </p-tabView>
 </div>
                 </div>
-        </div> 
+        </div>
     </div>
-        
-          
-       
-     
+
+
+
+
 
     </div>
-   
+
 </div>
 <p-toast></p-toast>

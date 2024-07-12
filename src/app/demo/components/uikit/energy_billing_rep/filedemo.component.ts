@@ -36,15 +36,15 @@ export class FileDemoComponent implements OnInit {
 
     // countries=[]
     countries1 = [
-        {id: 'b1', name: 'Energy Usage and Billing', link:'/usr' },
+        {id: 'b1', name: 'Weather Usage and Billing', link:'/usr' },
         {id: 'b2', name: 'Billing & Income', link:'/usr' },
         {id: 'b3', name: 'Monthly bill forecast', link:'/usr'  },
         {id: 'b4', name: 'Multi months bill report', link:'/usr'  },
         // {id: 'b5', name: 'Battery Simulation and Billing Analysis', link:'/usr'  }
       ];
       countries2 = [{
-        id: 1, name: 'Hourly Energy Consumption', link:'/usr' },
-        {id: 2, name: 'Energy consumption during selected hours', link:'/usr' },
+        id: 1, name: 'Hourly Weather Consumption', link:'/usr' },
+        {id: 2, name: 'Weather consumption during selected hours', link:'/usr' },
         {id: 3, name: 'Comparison Analysis for Different Meters', link:'/usr'  },
        { id: 4, name: 'Comparison Analysis on Time Basis', link:'/usr'  },
        { id: 5, name: 'Comprehensive Analysis', link:'/usr'  }
@@ -149,11 +149,11 @@ export class FileDemoComponent implements OnInit {
           }
       }
       ngOnInit(): void {
-        this.selectedCountry1={id: 'b1', name: 'Energy Usage and Billing', link:'/usr' }
+        this.selectedCountry1={id: 'b1', name: 'Weather Usage and Billing', link:'/usr' }
         this.selectedID='b1';
-        this.selectedName='Energy Usage and Billing';
+        this.selectedName='Weather Usage and Billing';
         this.datetype='M'
-        this.getDevice();   
+        this.getDevice();
       }
       logMockData(data:any){
         console.log(data)
@@ -184,8 +184,8 @@ export class FileDemoComponent implements OnInit {
         console.log(i.value);
         debugger
       }
-      
-      navigate(location: any){ 
+
+      navigate(location: any){
         debugger
         // this.router.navigate(['/billingreport']);
         // this.router.navigate(location.target.value);
@@ -193,16 +193,16 @@ export class FileDemoComponent implements OnInit {
        convertDateString(dateString: string): string {
         // Parse the date string to a Date object
         const date = new Date(dateString);
-      
+
         // Extract year, month, and day
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
         const day = String(date.getDate()).padStart(2, '0');
-      
+
         // Format the date as 'yyyy-mm-dd'
         return `${year}-${month}-${day}`;
       }
-      
+
        ShowHideTable(){
         this.spinner=true;
         console.log(this.datetype, this.selectedDevice, this.rangeDates);
@@ -223,7 +223,7 @@ export class FileDemoComponent implements OnInit {
           end_date_time: this.datetype=='C'?secondFormattedDate:null
         }
         debugger
-        this.http.post(apiUrl+'/client/report_analysis/new_energy_usage_billing',credentials , { headers }).subscribe(
+        this.http.post(apiUrl+'/client/report_analysis/new_weather_usage_billing',credentials , { headers }).subscribe(
             (response) => {
               this.spinner=false
               console.log(response);
@@ -233,22 +233,22 @@ export class FileDemoComponent implements OnInit {
               this.BillingDtls=data.data.master_bill;
               if(this.BillingList){
                 this.processBillingData();
-                // const totLastEnergy=(this.lastRowData.e1+this.lastRowData.e2+this.lastRowData.e3).toFixed(2)
+                // const totLastWeather=(this.lastRowData.e1+this.lastRowData.e2+this.lastRowData.e3).toFixed(2)
                 // for(let i=0;i<this.BillingList.length; i++){
                 //   if(i==0){
-                //     this.BillingList[i].total_energy=
+                //     this.BillingList[i].total_weather=
                 //   }
                 // }
                 // this.BillingList.forEach(e=>{
                 //   if(e.length==0){debugger
-                //     e.total_energy=(((e.e1+e.e2+e.e3) - totLastEnergy)).toFixed(2);
-                //     e.price=(((e.e1+e.e2+e.e3) - totLastEnergy) *(this.BillingDtls.billing_price)).toFixed(2);
+                //     e.total_weather=(((e.e1+e.e2+e.e3) - totLastWeather)).toFixed(2);
+                //     e.price=(((e.e1+e.e2+e.e3) - totLastWeather) *(this.BillingDtls.billing_price)).toFixed(2);
                 //   }
                 //   else{
-                //     e.total_energy=(e.e1+e.e2+e.e3).toFixed(2);
+                //     e.total_weather=(e.e1+e.e2+e.e3).toFixed(2);
                 //     e.price=((e.e1+e.e2+e.e3)*(this.BillingDtls.billing_price)).toFixed(2);
                 //   }
-                  
+
                 // })
               }
               debugger
@@ -256,7 +256,7 @@ export class FileDemoComponent implements OnInit {
               this.showTable2=false
               this.showTable4=false
             },
-            (error) => { 
+            (error) => {
         if(error.status=='401'){
           this.spinner=false
           this.router.navigate(['/']);
@@ -267,31 +267,31 @@ export class FileDemoComponent implements OnInit {
               this.spinner=false
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'From Server Side!!', life: 3000 });
             }
-            
+
           );
 
 
-        
-        
+
+
        }
        processBillingData() {
-        let previousTotalEnergy = this.calculateTotalEnergy(this.lastRowData);
-    
+        let previousTotalWeather = this.calculateTotalWeather(this.lastRowData);
+
         this.BillingList.forEach((item, index) => {
-          const currentTotalEnergy = this.calculateTotalEnergy(item);
-    
+          const currentTotalWeather = this.calculateTotalWeather(item);
+
           if (index === 0) {
-            item.total_energy = (currentTotalEnergy - previousTotalEnergy).toFixed(2);
+            item.total_weather = (currentTotalWeather - previousTotalWeather).toFixed(2);
           } else {
-            item.total_energy = (currentTotalEnergy - previousTotalEnergy).toFixed(2);
+            item.total_weather = (currentTotalWeather - previousTotalWeather).toFixed(2);
           }
-    
-          item.price = item.total_energy * this.BillingDtls.billing_price;
-    
-          previousTotalEnergy = currentTotalEnergy;
+
+          item.price = item.total_weather * this.BillingDtls.billing_price;
+
+          previousTotalWeather = currentTotalWeather;
         });
       }
-       calculateTotalEnergy(data) {
+       calculateTotalWeather(data) {
         return data.e1 + data.e2 + data.e3;
       }
        getDevice(){
@@ -308,10 +308,10 @@ export class FileDemoComponent implements OnInit {
                 this.spinner=false
                 this.data1=response
                 this.deviceList=this.data1.data;
-                this.selectedDevice=this.deviceList[0];  
+                this.selectedDevice=this.deviceList[0];
 
       },
-      (error) => { 
+      (error) => {
         if(error.status=='401'){
           this.router.navigate(['/']);
           debugger
@@ -323,7 +323,7 @@ export class FileDemoComponent implements OnInit {
     )}
     dateTypeChange(val:any){
       console.log(this.datetype);
-      
+
       if(val=="Y"){
         this.showyear=true;
         this.showMonth=false;

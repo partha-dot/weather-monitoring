@@ -50,15 +50,15 @@ export class FloatLabelDemoComponent implements OnInit  {
   loginType:string=localStorage.getItem('loginType');
   totOnline:number=0
   totOffilne:number=0
- 
+
   DeviceModel = [
-    { name: 'Energy', code: 'EN' },
+    { name: 'Weather', code: 'EN' },
     { name: 'Water', code: 'WA' },
     { name: 'Power', code: 'PO' },
     { name: 'Wind', code: 'WI' }
 ];
   DeviceType = [
-    { name: 'Energy', code: 'EN' },
+    { name: 'Weather', code: 'EN' },
     // { name: 'Water', code: 'WA' },
     // { name: 'Power', code: 'PO' },
     // { name: 'Wind', code: 'WI' }
@@ -78,8 +78,8 @@ export class FloatLabelDemoComponent implements OnInit  {
       long: ['', [Validators.required]],
       imeiNo: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(15)]],
       device_type: ['', [Validators.required]],
-      meter_type: ['', [Validators.required]]
-      // sl_no: this.fb.array([]) 
+    //   meter_type: ['', [Validators.required]]
+      // sl_no: this.fb.array([])
     });
   }
 
@@ -105,7 +105,7 @@ export class FloatLabelDemoComponent implements OnInit  {
     this.addDevice.reset();
     this.addDevice.patchValue({
       device_type:0,
-      meter_type:0
+    //   meter_type:0
     })
     this.operationType="I"
     this.product = {};
@@ -114,7 +114,7 @@ export class FloatLabelDemoComponent implements OnInit  {
 }
 
   public getSeverity(status: string) {
-    
+
     return 'success'
 }
   deleteSelectedProducts() {
@@ -137,7 +137,7 @@ export class FloatLabelDemoComponent implements OnInit  {
         did:product.device_id,
         deviceName:product.device_name,
         device_type:product.device_type,
-        meter_type:product.meter_type,
+        // meter_type:product.meter_type,
         deviceId:product.device,
         dmodel:product.model,
         lat:product.lat,
@@ -170,7 +170,7 @@ export class FloatLabelDemoComponent implements OnInit  {
       this.submitted = false;
   }
   calculateDifference(date1Str: string): number {
-    
+
     // const date1 = new Date("2024-05-31 15:15:21");
     const date1 = new Date(date1Str);
     const date2 = new Date();
@@ -190,7 +190,7 @@ export class FloatLabelDemoComponent implements OnInit  {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
     const credentials = {
-      client_id:this.client_id  
+      client_id:this.client_id
     };
     this.http.post(apiUrl+'/client/manage/devices/list',credentials, { headers }).subscribe(
         (response) => {
@@ -203,7 +203,7 @@ export class FloatLabelDemoComponent implements OnInit  {
           this.totOffilne=0;
           this.stockList.forEach(e=>{
             debugger
-            if(this.calculateDifference(e.energy_data_created_at)<=60){
+            if(this.calculateDifference(e.weather_data_created_at)<=60){
                 e.status='Y';
                 this.totOnline+=1
             }
@@ -214,7 +214,7 @@ export class FloatLabelDemoComponent implements OnInit  {
           })
           debugger
         },
-        (error) => { 
+        (error) => {
         if(error.status=='401'){
           this.router.navigate(['/']);
           debugger
@@ -223,7 +223,7 @@ export class FloatLabelDemoComponent implements OnInit  {
           this.spinner=false;
           console.error(error);
         }
-        
+
       );
 }
     convDt(){
@@ -261,11 +261,11 @@ export class FloatLabelDemoComponent implements OnInit  {
             lon:this.ct.long.value,
             imei_no:this.ct.imeiNo.value,
             device_type:this.ct.device_type.value,
-            meter_type:this.ct.meter_type.value,
+            // meter_type:this.ct.meter_type.value,
             do_channel:1,
             last_maintenance:this.convDt()
-  
-            
+
+
           };
           const credentials2=[credentials]
           debugger
@@ -279,7 +279,7 @@ export class FloatLabelDemoComponent implements OnInit  {
                 this.getAllStock();
                 this.hideDialog();
               },
-              (error) => { 
+              (error) => {
           if(error.status=='401'){
             this.router.navigate(['/']);
             debugger
@@ -307,11 +307,11 @@ export class FloatLabelDemoComponent implements OnInit  {
             lon:this.ct.long.value,
             imei_no:this.ct.imeiNo.value,
             device_type:this.ct.device_type.value,
-            meter_type:this.ct.meter_type.value,
+            // meter_type:this.ct.meter_type.value,
             do_channel:1,
             // last_maintenance:this.convDt()
-  
-            
+
+
           };
           debugger
           this.http.post(apiUrl+'/client/manage/devices/edit', credentials,{ headers }).subscribe(
@@ -324,7 +324,7 @@ export class FloatLabelDemoComponent implements OnInit  {
                 this.getAllStock();
                 this.hideDialog();
               },
-              (error) => { 
+              (error) => {
           if(error.status=='401'){
             this.router.navigate(['/']);
             debugger
@@ -334,13 +334,13 @@ export class FloatLabelDemoComponent implements OnInit  {
                       console.log(error);
                       this.hideDialog();
                       this.messageService.add({ severity: 'error', summary: 'Error', detail: ':Unknown Error', life: 3000 });
-                      
+
               }
             );
         }
       }
-      
-      
+
+
   }
   resetData(){
     this.addDevice.reset();

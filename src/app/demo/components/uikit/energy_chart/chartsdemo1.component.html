@@ -68,27 +68,27 @@
                     <div class="grid" style="margin-left: 0rem!important;">
                         <div class="col-12 lg:col-6 xl:col-12">
                             <!-- <div class="card" >
-                                <h4>Energy Used</h4>
+                                <h4>Weather Used</h4>
                             <button class="qbutton"
                             [class.active]="activeOptionButton=='1yd'"
-                            (click)="getEnergyUsedByFilter('1yd')"
+                            (click)="getWeatherUsedByFilter('1yd')"
                             >
                             TODAY
                             </button>
                             <button class="qbutton"
-                            (click)="getEnergyUsedByFilter('1m')"
+                            (click)="getWeatherUsedByFilter('1m')"
                             [class.active]="activeOptionButton=='1m'"
                             >
                             MONTHLY
                             </button>
                             <button class="qbutton"
-                            (click)="getEnergyUsedByFilter('1y')"
+                            (click)="getWeatherUsedByFilter('1y')"
                             [class.active]="activeOptionButton=='1y'"
                             >
                             YEARLY
                             </button>
                             <button class="qbutton"
-                            (click)="getEnergyUsedByFilter('all')"
+                            (click)="getWeatherUsedByFilter('all')"
                             [class.active]="activeOptionButton=='all'"
                             >
                             TOTAL
@@ -125,8 +125,8 @@
                                             <form [formGroup]="graphical_view">
                                                 <filter-form
                                                 [_graphical_view_menus]="graphical_view_filter_menu"
-                                                formControlName="energy_used"
-                                                (onChange)="getEnergyUsedChartDataByFilter($event)"
+                                                formControlName="weather_used"
+                                                (onChange)="getWeatherUsedChartDataByFilter($event)"
                                                 ></filter-form>
                                             </form>
                                     </div>
@@ -158,7 +158,7 @@
                                 <div class="card-header">
                                     <h4>Voltage(V)</h4>
 
-                                    <form [formGroup]="energy_filter">
+                                    <form [formGroup]="weather_filter">
                                         <p-calendar
                                         [inline]="false"
                                         placeholde="From Date - To Date"
@@ -233,7 +233,7 @@
                             <!-- <div class="card" >
                                 <div class="card-header">
                                     <h4>Current(A)</h4>
-                                    <form [formGroup]="energy_filter">
+                                    <form [formGroup]="weather_filter">
                                         <p-calendar
                                         [inline]="false"
                                         placeholde="From Date - To Date"
@@ -306,7 +306,7 @@
                             <!-- <div class="card" >
                                 <div class="card-header">
                                     <h4>Power</h4>
-                                    <form [formGroup]="energy_filter">
+                                    <form [formGroup]="weather_filter">
                                         <p-calendar
                                         [inline]="false"
                                         placeholde="From Date - To Date"

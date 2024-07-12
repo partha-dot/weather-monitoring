@@ -1,7 +1,7 @@
 <div class="grid">
     <p-toast></p-toast>
-    <div class="col-12 lg:col-12"> 
-        
+    <div class="col-12 lg:col-12">
+
             <form [formGroup]="formGroup">
                 <div >
                     <div class="grid">
@@ -12,141 +12,141 @@
                              <button (click)="display=true" pButton icon="pi pi-external-link" label="Change Organization"></button>
                         </div>
                     </div>
-                    
+
                     <div class="card flex flex-column md:flex-row gap-1">
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">Device Management</label>
-                            <p-toggleButton 
-                            formControlName="mn_device_management" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="mn_device_management"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
+                            (onChange)="valueChange()"
                             onCha
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">User Management</label>
-                            <p-toggleButton 
-                            formControlName="mn_user_management" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="mn_user_management"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">Device Information</label>
-                            <p-toggleButton 
-                            formControlName="en_tab_device_info" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="en_tab_device_info"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">Create Device Alert</label>
-                            <p-toggleButton 
-                            formControlName="en_tab_create_alert" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="en_tab_create_alert"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">Device Scheduling</label>
-                            <p-toggleButton 
-                            formControlName="en_tab_scheduling" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="en_tab_scheduling"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">Report Analysis</label>
-                            <p-toggleButton 
-                            formControlName="en_tab_report_analysi" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="en_tab_report_analysi"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
-                    </div> 
-                        
+                    </div>
+
                 </div>
                 <div ><br>
                     <h5> Graph Screen Settings {{this.selectedOrganization?.organization_name}}</h5>
                     <div class="card flex flex-column md:flex-row gap-1">
                         <div class="field col-12 md:col-2" >
-                            <label htmlFor="firstname2">Energy Used Graph</label>
-                            <p-toggleButton 
-                            formControlName="gv_energy_used" 
-                            onLabel="Show" 
+                            <label htmlFor="firstname2">Weather Used Graph</label>
+                            <p-toggleButton
+                            formControlName="gv_weather_used"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">Voltage Graph</label>
-                            <p-toggleButton 
-                            formControlName="gv_voltage" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="gv_voltage"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">Current Graph</label>
-                            <p-toggleButton 
-                            formControlName="gv_current" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="gv_current"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
                         <div class="field col-12 md:col-2" >
                             <label htmlFor="firstname2">Power Graph</label>
-                            <p-toggleButton 
-                            formControlName="gv_power" 
-                            onLabel="Show" 
+                            <p-toggleButton
+                            formControlName="gv_power"
+                            onLabel="Show"
                             offLabel="Hide"
-                            (onChange)="valueChange()" 
-                            onIcon="pi pi-eye" 
-                            offIcon="pi pi-eye-slash" 
+                            (onChange)="valueChange()"
+                            onIcon="pi pi-eye"
+                            offIcon="pi pi-eye-slash"
                             styleClass="w-9rem"
                             ariaLabel="Do you confirm"/>
                         </div>
-                    </div>  
-                    
-                </div>        
-                
-                   
-                   
+                    </div>
+
+                </div>
+
+
+
             </form><br>
 
 
@@ -155,22 +155,22 @@
                     <div class="field col-12 md:col-12" >
                         <label htmlFor="firstname2">Select Organization</label><br>
                         <!-- [(ngModel)]="selectedOrganization" -->
-                        
+
                         <!-- formControlName="selectedOrganization" -->
-                        <p-dropdown 
+                        <p-dropdown
                         [(ngModel)]="selectedOrganization"
                         [options]="orgList"
                         optionLabel="organization_name"
                         placeholder="Select a Organization"
-                        style="max-width: 20px!important;" 
+                        style="max-width: 20px!important;"
                         (onChange)="setOrg($event.value)"/>
                     </div>
                 <ng-template pTemplate="footer">
                         <button pButton icon="pi pi-check" (click)="getsetting()" label="Get Details" class="p-button-outlined"></button>
                 </ng-template>
             </p-dialog>
-            
-       
+
+
 
 
 
@@ -178,21 +178,21 @@
             <h5>Screen Visibility Settings</h5>
             <div class="field col-12 md:col-3" >
                 <label htmlFor="firstname2">Select Organization</label>
-                <p-dropdown 
+                <p-dropdown
                 [(ngModel)]="selectedOrganization"
                 [options]="orgList"
                 optionLabel="organization_name"
-                placeholder="Select a Organization" 
+                placeholder="Select a Organization"
                 (onChange)="setOrg()"/>
             </div>
             <form [formGroup]="formGroup">
-                   <p-toggleButton 
-                    formControlName="checked" 
-                    onLabel="Show" 
+                   <p-toggleButton
+                    formControlName="checked"
+                    onLabel="Show"
                     offLabel="Hide"
-                    onChange="valueChange()" 
-                    onIcon="pi pi-eye" 
-                    offIcon="pi pi-eye-slash" 
+                    onChange="valueChange()"
+                    onIcon="pi pi-eye"
+                    offIcon="pi pi-eye-slash"
                     styleClass="w-9rem"
                     ariaLabel="Do you confirm"/>
             </form>

@@ -1,6 +1,6 @@
 
 export const api_name = {
-        ENERGY_USED:'client/devices/graphical_view/energy_used',
+        ENERGY_USED:'client/devices/graphical_view/weather_used',
         VOLTAGE_USED:'client/devices/graphical_view/voltage',
         CURRENT_USED:'client/devices/graphical_view/current',
         POWER_USED:'client/devices/graphical_view/power',

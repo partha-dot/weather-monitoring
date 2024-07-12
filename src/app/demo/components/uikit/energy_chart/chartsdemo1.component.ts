@@ -29,7 +29,7 @@ import {
   } from "ng-apexcharts";
 import { MessagesDemoComponent } from '../alert/messagesdemo.component';
 import { api_name } from 'src/app/demo/constants/apiName';
-import { IEnergyUsed } from './energy_chart.model';
+import { IWeatherUsed } from './energy_chart.model';
 import GraphicalViewFilter from '../../../../../assets/demo/data/graphicalViewFilter.json';
 import { DropdownFilterOptions } from 'primeng/dropdown';
 
@@ -418,7 +418,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
 
     /**** Graphical View Form belongs to filter */
     graphical_view = new FormGroup({
-            energy_used: new FormControl(GraphicalViewFilter[0]),
+            weather_used: new FormControl(GraphicalViewFilter[0]),
             voltage:new FormControl(GraphicalViewFilter[0]),
             current: new FormControl(GraphicalViewFilter[0]),
             power: new FormControl(GraphicalViewFilter[0]),
@@ -430,7 +430,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
     graphical_view_filter_menu:Required<{name:string,code:string}>[] = GraphicalViewFilter;
     /**** End */
 
-    energyUsed:Partial<IEnergyUsed>[]=[];
+    weatherUsed:Partial<IWeatherUsed>[]=[];
 
 
 
@@ -527,7 +527,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
     }
   };
 
-  energy_filter = new FormGroup({
+  weather_filter = new FormGroup({
       voltage_date_time:new FormControl([new Date(),new Date()]),
       current_date_time:new FormControl([new Date(),new Date()]),
       power_date_time:new FormControl([new Date(),new Date()]),
@@ -648,10 +648,10 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
         this.getDevice();
 
         // setTimeout(() => {
-        //     // this.getEnergyUsedByFilter('1yd');
-        //     // this.getVoltagechartDataByFilterDate(this.energy_filter.value.voltage_date_time);
-        //     // this.getCurrentchartDataByFilterDate(this.energy_filter.value.current_date_time)
-        //     // this.getPowerchartDataByFilterDate(this.energy_filter.value.current_date_time)
+        //     // this.getWeatherUsedByFilter('1yd');
+        //     // this.getVoltagechartDataByFilterDate(this.weather_filter.value.voltage_date_time);
+        //     // this.getCurrentchartDataByFilterDate(this.weather_filter.value.current_date_time)
+        //     // this.getPowerchartDataByFilterDate(this.weather_filter.value.current_date_time)
         // },1000);
 
 
@@ -675,7 +675,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
      * @param data: array of search Date
     */
     getVoltagechartDataByFilterDate = (data:Date[] | null = [new Date(), new Date()]) =>{
-    const dt:Partial<IEnergyVoltagePowerUsedPayLoad> ={
+    const dt:Partial<IWeatherVoltagePowerUsedPayLoad> ={
             "client_id": this.client_id,
             "device_id": this.selectedDealer.device_id,
             "device": this.selectedDealer.device,
@@ -759,7 +759,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
      * @param data: array of search Date
     */
       getCurrentchartDataByFilterDate = (data:Date[] | null = [new Date(), new Date()]) =>{
-        const dt:Partial<IEnergyVoltagePowerUsedPayLoad> ={
+        const dt:Partial<IWeatherVoltagePowerUsedPayLoad> ={
                 "client_id": this.client_id,
                 "device_id": this.selectedDealer.device_id,
                 "device": this.selectedDealer.device,
@@ -834,7 +834,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
      * @param data: array of search Date
     */
         getPowerchartDataByFilterDate = (data:Date[] | null = [new Date(), new Date()]) =>{
-            const dt:Partial<IEnergyVoltagePowerUsedPayLoad> ={
+            const dt:Partial<IWeatherVoltagePowerUsedPayLoad> ={
                     "client_id": this.client_id,
                     "device_id": this.selectedDealer.device_id,
                     "device": this.selectedDealer.device,
@@ -927,7 +927,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
     ngAfterViewInit(){
 
         /** Event Fired when Voltage Date change event occured */
-        this.energy_filter.get('voltage_date_time')
+        this.weather_filter.get('voltage_date_time')
         .valueChanges.subscribe(res =>{
                 if(res && res.filter(el => el== null).length == 0){
                         console.log(res);
@@ -937,7 +937,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
         /* End*/
 
         /** Event Fired when Cuurrent Date change event occured */
-        this.energy_filter.get('current_date_time')
+        this.weather_filter.get('current_date_time')
         .valueChanges.subscribe(res =>{
             if(res && res.filter(el => el== null).length == 0){
                 this.getCurrentchartDataByFilterDate(res);
@@ -945,7 +945,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
         })
         /*End*/
 
-        this.energy_filter.get('power_date_time')
+        this.weather_filter.get('power_date_time')
         .valueChanges.subscribe(res =>{
                 console.log(res)
                 if(res && res.filter(el => el== null).length == 0){
@@ -1248,14 +1248,14 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
     }
     /** End */
 
-    /** Changes effected when Energy used dropdown value changes */
-    getEnergyUsedChartDataByFilter = (ev:Required<IFilterMenus>) =>{
+    /** Changes effected when Weather used dropdown value changes */
+    getWeatherUsedChartDataByFilter = (ev:Required<IFilterMenus>) =>{
             this.chartOptions2 = null;
             const payload = this.getPayload(ev);
             this.api.call_api(1,api_name.ENERGY_USED,payload)
             .pipe(map((x: any) => x.data))
-            .subscribe((res:Required<IEnergyUsed>[]) =>{
-                // this.energyUsed = res;
+            .subscribe((res:Required<IWeatherUsed>[]) =>{
+                // this.weatherUsed = res;
                 // if(res.length > 0){
                     let date = [];
                     let arr:Required<{name:string,data:number[],filtered:string}>[] =
@@ -1337,7 +1337,7 @@ export class ChartsDemo1Component implements OnInit, OnDestroy {
      * @param ev get Selected Filter by which data can be filtered
      * @returns a payload which are to be sent in the api
      */
-    getPayload (ev:Required<IFilterMenus>): Partial<IEnergyVoltagePowerUsedPayLoad>{
+    getPayload (ev:Required<IFilterMenus>): Partial<IWeatherVoltagePowerUsedPayLoad>{
         return {
             // client_id:this.client_id,
             device_id:this.selectedDealer.device_id,
@@ -1500,7 +1500,7 @@ getDeviceLiveData(name:any){
             return formattedDate
         }
     setDevice(){
-        this.getEnergyUsedChartDataByFilter(this.graphical_view.value.energy_used);
+        this.getWeatherUsedChartDataByFilter(this.graphical_view.value.weather_used);
         this.getVoltageChartDataByFilter(this.graphical_view.value.voltage);
         this.getCurrentChartDataByFilter(this.graphical_view.value.current);
         this.getPowerChartDataByFilter(this.graphical_view.value.power);
@@ -1522,20 +1522,20 @@ getDeviceLiveData(name:any){
     }
 
     /**
-     * For Getting chart data of `Energy Used`
+     * For Getting chart data of `Weather Used`
      * @param mode : For detecting whether it is `Today`,`Monthly`,`Yearly` or `Total`
      */
-    getEnergyUsedByFilter = (mode:string) =>{
+    getWeatherUsedByFilter = (mode:string) =>{
         try{
             this.activeOptionButton = mode
-            const dt:Partial<IEnergyVoltagePowerUsedPayLoad> ={
+            const dt:Partial<IWeatherVoltagePowerUsedPayLoad> ={
               "client_id": this.client_id,
               "device_id": this.selectedDealer.device_id,
               "device": this.selectedDealer.device,
              "start_date_time": this.getDatesAccordingToMode(mode,'E')
             }
             this.api.call_api(1,api_name.ENERGY_USED,dt).pipe(map((x: any) => x.data))
-            .subscribe((res:Required<IEnergyUsed>[]) =>{
+            .subscribe((res:Required<IWeatherUsed>[]) =>{
                 if(res.length > 0){
                 let date = [];
                 let arr:Required<{name:string,data:number[],filtered:string}>[] =
@@ -1604,7 +1604,7 @@ getDeviceLiveData(name:any){
         }
     }
 
-    /** For Getting End Date After click on Energy used
+    /** For Getting End Date After click on Weather used
      *
      * @param mode: detecting which button is clicked
      * @param range_type: Either MAX/MIN is accepted
@@ -2353,7 +2353,7 @@ getDeviceLiveData(name:any){
 }
 
 
-export interface IEnergyVoltagePowerUsedPayLoad{
+export interface IWeatherVoltagePowerUsedPayLoad{
     client_id: number,
     device_id: number,
     device: number,
@@ -2368,7 +2368,7 @@ export interface IFilterMenus{
 }
 
 export interface  IVoltage {
-    energy_data_id: number
+    weather_data_id: number
     device_id: number
     do_channel: number
     r: number
@@ -2382,7 +2382,7 @@ export interface  IVoltage {
   }
 
   export interface ICurrent {
-    energy_data_id: number
+    weather_data_id: number
     device_id: number
     do_channel: number
     curr1: number
@@ -2394,7 +2394,7 @@ export interface  IVoltage {
 
 
   export interface IPower {
-    energy_data_id: number
+    weather_data_id: number
     device_id: number
     do_channel: number
     activep1: number
@@ -2411,7 +2411,7 @@ export interface  IVoltage {
   }
 
   export interface IKwKvaKvar{
-        energy_data_id: number
+        weather_data_id: number
         device_id: number
         do_channel: number
         totkw: number

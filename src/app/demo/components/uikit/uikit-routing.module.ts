@@ -6,11 +6,11 @@ import { AuthGuard } from '../../service/auth.guard';
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'DG', data: { breadcrumb: 'Button' }, loadChildren: () => import('./dg/buttondemo.module').then(m => m.ButtonDemoModule) },
-        { path: 'energy', data: { breadcrumb: 'energy' }, loadChildren: () => import('./energy/chartsdemo.module').then(m => m.ChartsDemoModule) },
-        { path: 'energy_chart', data: { breadcrumb: 'energy' }, loadChildren: () => import('./energy_chart/chartsdemo1.module').then(m => m.ChartsDemo1Module) },
-        { path: 'energy_devInfo', data: { breadcrumb: 'energy' }, loadChildren: () => import('./energy_devInfo/chartsdemo2.module').then(m => m.ChartsDemo2Module) },
-        { path: 'energy_billing', data: { breadcrumb: 'File' }, loadChildren: () => import('./energy_billing_rep/filedemo.module').then(m => m.FileDemoModule)},
-        { path: 'energy_billing2', data: { breadcrumb: 'File' }, loadChildren: () => import('./energy_billing_rep2/filedemo2.module').then(m => m.FileDemo2Module)},
+        { path: 'weather', data: { breadcrumb: 'weather' }, loadChildren: () => import('./energy/chartsdemo.module').then(m => m.ChartsDemoModule) },
+        { path: 'weather_chart', data: { breadcrumb: 'weather' }, loadChildren: () => import('./energy_chart/chartsdemo1.module').then(m => m.ChartsDemo1Module) },
+        { path: 'weather_devInfo', data: { breadcrumb: 'weather' }, loadChildren: () => import('./energy_devInfo/chartsdemo2.module').then(m => m.ChartsDemo2Module) },
+        { path: 'weather_billing', data: { breadcrumb: 'File' }, loadChildren: () => import('./energy_billing_rep/filedemo.module').then(m => m.FileDemoModule)},
+        { path: 'weather_billing2', data: { breadcrumb: 'File' }, loadChildren: () => import('./energy_billing_rep2/filedemo2.module').then(m => m.FileDemo2Module)},
         { path: 'device_m', data: { breadcrumb: 'Float Label' }, loadChildren: () => import('./m_device_management/floatlabeldemo.module').then(m => m.FloatlabelDemoModule) },
         { path: 'schedul', data: { breadcrumb: 'Form Layout' }, loadChildren: () => import('./stockEntry/formlayoutdemo.module').then(m => m.FormLayoutDemoModule) },
         { path: 'device_s', data: { breadcrumb: 'Input' }, loadChildren: () => import('./m_user_management/inputdemo.module').then(m => m.InputDemoModule) },
