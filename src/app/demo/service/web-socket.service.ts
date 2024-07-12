@@ -14,7 +14,7 @@ export class WebsocketService {
   device_id:number
   device:string
   resData:string
-  private baseURL:string="ws://13.49.80.167:8000/api/ws_routes/ws/EMS/"
+  private baseURL:string="ws://13.49.80.167:8000/api/ws_routes/ws/WMS/"
   constructor(private router: Router,private api:ApiService,private http:HttpClient) { }
 
   public connect(client_id,d_id,d_name): Observable<any> {
@@ -29,7 +29,7 @@ export class WebsocketService {
         this.socketStatus=true;
         console.log('WebSocket connected');
         this.callData()
-        
+
       };
 
       this.socket.onmessage = (event) => {
@@ -37,15 +37,15 @@ export class WebsocketService {
           const data = JSON.parse(event.data);
           observer.next(data);
           console.log(data);
-          
+
         } catch (error) {
           observer.error(error);
           console.log(error);
-          
+
         }
       };
 
-      this.socket.onerror = (error) => { 
+      this.socket.onerror = (error) => {
         observer.error(error);
         console.log(error);
       };
@@ -76,13 +76,13 @@ export class WebsocketService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
 
-    this.http.post(this.api.baseUrl+'/device/ws_data_ems', credentials, { headers }).subscribe(
+    this.http.post(this.api.baseUrl+'/device/ws_data_wms', credentials, { headers }).subscribe(
         (response) => {
         debugger
         const res:any=response
         this.resData=res.data;
           console.log(response);
-      
+
       })
     }
   }

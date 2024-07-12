@@ -27,47 +27,25 @@ import { Router } from '@angular/router';
   };
 
 
-  interface EnergyData {
-    energy_data_id: number;
+  export interface WeatherData {
+    atm_pressure: number;
     client_id: number;
-    device_id: number;
-    device: string;
-    do_channel: number;
-    e1: number;
-    e2: number;
-    e3: number;
-    r: number;
-    y: number;
-    b: number;
-    r_y: number;
-    y_b: number;
-    b_y: number;
-    curr1: number;
-    curr2: number;
-    curr3: number;
-    activep1: number;
-    activep2: number;
-    activep3: number;
-    apparentp1: number;
-    apparentp2: number;
-    apparentp3: number;
-    pf1: number;
-    pf2: number;
-    pf3: number;
-    freq: number;
-    reactvp1: number;
-    reactvp2: number;
-    reactvp3: number;
-    avaragevln: number;
-    avaragevll: number;
-    avaragecurrent: number;
-    totkw: number;
-    totkva: number;
-    totkvar: number;
-    runhr: number;
-    date: string;
-    time: string;
     created_at: string;
+    date: string;
+    device: string;
+    device_id: number;
+    humidity: number;
+    rainfall: number;
+    rainfall_cumulative: number;
+    runhr: number;
+    solar_radiation: number;
+    temperature: number;
+    time: string;
+    tw: number;
+    updated_at: string | null;
+    weather_data_id: number;
+    wind_direction: number;
+    wind_speed: number;
   }
 @Component({
     selector:"app-chartsdemo",
@@ -193,6 +171,8 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     activeItem: MenuItem | undefined;
     ws: WebSocketSubject<any>;
     messages: string[] = [];
+    currentDateTime: Date;
+    private intervalId: any;
 
     selectedPhase:any={
     "unit_name": "Single Phase",
@@ -216,6 +196,7 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     tot_e1:number=0;
     tot_e2:number=0;
     tot_e3:number=0;
+    wsData:WeatherData;
     weeklyPaiData:any[]=[];
     weekdayName: any[]=[];
     weekData: any[]=[];
@@ -240,6 +221,8 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
    }
     ngOnInit() {
 
+        this.updateDateTime();
+        this.intervalId = setInterval(() => this.updateDateTime(), 1000);
 
       this.items = [
         { label: 'Live', icon: 'pi pi-fw pi-home',routerLink: ['/app/outlet/alert']  },
@@ -264,6 +247,9 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
         //   }, 20000);
     }
 
+      private updateDateTime(): void {
+        this.currentDateTime = new Date();
+      }
     connectToWebSocket(c_id,d_id,d_name) {
       this.spinner=true;
       this.websocketSubscription = this.websocketService.connect(c_id,d_id,d_name)
@@ -272,11 +258,14 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
             console.log('Received message:', message);
             const jsonString = message
             const AllData: any = JSON.parse(jsonString);
-            const energyData: EnergyData = AllData.lastdata;
-            this.weeklyPaiData = AllData.lastdata_weekdata;
-            if(this.weeklyPaiData.length>0){
-            this.initCharts();
-            }
+            console.log(AllData);
+            this.wsData=AllData.lastdata;
+            const energyData: WeatherData = AllData.lastdata;
+            // this.weeklyPaiData = AllData.lastdata_weekdata;
+            this.spinner=false;
+            // if(this.weeklyPaiData?.length>0){
+            // this.initCharts();
+            // }
             this.m_e1=0
             this.m_e2=0
             this.m_e3=0
@@ -546,7 +535,7 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
       const options:any = { weekday: 'long' };
       return date.toLocaleDateString('en-US', options);
     }
-    
+
     initCharts() {
       this.weekdayName=[];
       this.weekData=[];
@@ -557,7 +546,7 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
       })
       if(this.weekdayName.length>0 && this.weekData.length>0){
         console.log(this.weekdayName,this.weekData);
-      
+
         this.chartOptions = {
             series: this.weekData,
             chart: {
@@ -584,7 +573,7 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
       }
       else{
         console.log(this.weekdayName,this.weekData);
-      
+
         this.chartOptions = {
             series: [100],
             chart: {
@@ -609,7 +598,7 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
 
           };
       }
-      
+
 
 
     }
@@ -635,6 +624,9 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
       // this.websocketSubscription.unsubscribe();
         if (this.subscription) {
           this.subscription.unsubscribe();
+      }
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
       }
 
     }

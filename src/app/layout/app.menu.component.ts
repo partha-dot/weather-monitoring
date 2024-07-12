@@ -25,21 +25,21 @@ export class AppMenuComponent implements OnInit {
                                 {
                                     label: 'Energy',
                                     icon: 'pi pi-bolt',
-                                    routerLink: ['/app/outlet/energy'] 
+                                    routerLink: ['/app/outlet/energy']
                                 },
                                 // {
                                 //     label: 'UPS',
                                 //     icon: 'pi pi-server',
-                                //     routerLink: ['/app/outlet/UPS'] 
+                                //     routerLink: ['/app/outlet/UPS']
                                 // },
                                 // {
                                 //     label: 'DG',
                                 //     icon: 'pi pi-exclamation-triangle',
-                                //     routerLink: ['/app/outlet/DG'] 
+                                //     routerLink: ['/app/outlet/DG']
                                 // }
                             ]
                         },
-                    
+
                     ]
                 }
             ]
@@ -56,51 +56,51 @@ export class AppMenuComponent implements OnInit {
                                 {
                                     label: 'Add Organization',
                                     icon: 'pi pi-building',
-                                    routerLink: ['/app/outlet/org'] 
+                                    routerLink: ['/app/outlet/org']
                                 },
                                 {
                                     label: 'Add User',
                                     icon: 'pi pi-users',
-                                    routerLink: ['/app/outlet/usr'] 
+                                    routerLink: ['/app/outlet/usr']
                                 },
-                                
+
                                 // {
                                 //     label: 'Model',
                                 //     icon: 'pi pi-box',
-                                //     routerLink: ['/app/outlet/model'] 
+                                //     routerLink: ['/app/outlet/model']
                                 // },
-                                // { label: 'Barcode Generate', 
-                                // icon: 'pi pi-qrcode', 
+                                // { label: 'Barcode Generate',
+                                // icon: 'pi pi-qrcode',
                                 // routerLink: ['/app/outlet/barcode'] },
                             ]
                         }
                     ]
                 },
-                
+
                 {
                     label: 'Device',
                     items: [
-                        { label: 'Overview',
-                        icon: 'pi pi-th-large',
-                        items: [
+                        // { label: 'Overview',
+                        // icon: 'pi pi-th-large',
+                        // items: [
                                 {
-                                    label: 'Energy',
-                                    icon: 'pi pi-bolt',
-                                    routerLink: ['/app/outlet/energy'] 
+                                    label: 'Weather',
+                                    icon: 'pi pi-cloud',
+                                    routerLink: ['/app/outlet/energy']
                                 },
                                 // {
                                 //     label: 'UPS',
                                 //     icon: 'pi pi-server',
-                                //     routerLink: ['/app/outlet/UPS'] 
+                                //     routerLink: ['/app/outlet/UPS']
                                 // },
                                 // {
                                 //     label: 'DG',
                                 //     icon: 'pi pi-exclamation-triangle',
-                                //     routerLink: ['/app/outlet/DG'] 
+                                //     routerLink: ['/app/outlet/DG']
                                 // }
-                            ]
-                        },
-                       
+                            // ]
+                        // },
+
                     ]
                 },
                 {
@@ -108,26 +108,27 @@ export class AppMenuComponent implements OnInit {
                     items: [
                         { label: 'Device Management', icon: 'pi pi-sitemap', routerLink: ['/app/outlet/device_m'], permission:'N' },
                         { label: 'User Management', icon: 'pi pi-users', routerLink: ['/app/outlet/device_s'] , permission:'N'},
-                        {
-                        label:'Settings',
-                        icon: 'pi pi-spin pi-cog',
-                        items: [
-                            {
-                                label: 'Organization Settings',
-                                icon: 'pi pi-building',
-                                routerLink: ['/app/outlet/org_setting'] 
-                            },
-                            {
-                                label: 'Screen Settings',
-                                icon: 'pi pi-desktop',
-                                routerLink: ['/app/outlet/screen_Setting'] 
-                            },]
-                        }
+                        // {
+                        // label:'Settings',
+                        // icon: 'pi pi-spin pi-cog',
+                        // items: [
+                        //     {
+                        //         label: 'Organization Settings',
+                        //         icon: 'pi pi-building',
+                        //         routerLink: ['/app/outlet/org_setting']
+                        //     },
+                        //     {
+                        //         label: 'Screen Settings',
+                        //         icon: 'pi pi-desktop',
+                        //         routerLink: ['/app/outlet/screen_Setting']
+                        //     },]
+                        // }
                     ]
-                }]
+                }
+            ]
             }
-          
-                
-        
+
+
+
     }
 }
