@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from '../../service/auth.guard';
+import { Breadcrumb } from 'primeng/breadcrumb';
 
 
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'DG', data: { breadcrumb: 'Button' }, loadChildren: () => import('./dg/buttondemo.module').then(m => m.ButtonDemoModule) },
         { path: 'weather', data: { breadcrumb: 'weather' }, loadChildren: () => import('./energy/chartsdemo.module').then(m => m.ChartsDemoModule) },
-        { path: 'weather_chart', data: { breadcrumb: 'weather' }, loadChildren: () => import('./energy_chart/chartsdemo1.module').then(m => m.ChartsDemo1Module) },
+        {path:'weather_chart',data:{Breadcrumb: 'weather'},loadChildren:() => import ('./energy_chart/graphical-view/graphical-view.module').then(graph => graph.GraphicalViewModule)},
+        // { path: 'weather_chart', data: { breadcrumb: 'weather' }, loadChildren: () => import('./energy_chart/chartsdemo1.module').then(m => m.ChartsDemo1Module) },
         { path: 'weather_devInfo', data: { breadcrumb: 'weather' }, loadChildren: () => import('./energy_devInfo/chartsdemo2.module').then(m => m.ChartsDemo2Module) },
         { path: 'weather_billing', data: { breadcrumb: 'File' }, loadChildren: () => import('./energy_billing_rep/filedemo.module').then(m => m.FileDemoModule)},
         { path: 'weather_billing2', data: { breadcrumb: 'File' }, loadChildren: () => import('./energy_billing_rep2/filedemo2.module').then(m => m.FileDemo2Module)},
