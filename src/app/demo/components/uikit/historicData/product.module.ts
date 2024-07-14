@@ -21,6 +21,8 @@ import { FilterService } from 'primeng/api';
 import { PickListModule } from 'primeng/picklist';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { CalendarModule } from 'primeng/calendar';
+import { SidebarModule } from 'primeng/sidebar';
 @NgModule({
   declarations: [ProductComponent],
   imports: [
@@ -40,8 +42,10 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 		ToastModule,
 		DialogModule,
 		ToolbarModule,
+		SidebarModule,
 		ProgressSpinnerModule,
 		ConfirmDialogModule,
+		CalendarModule,
     ProductRoutingModule,
 	PickListModule
 	

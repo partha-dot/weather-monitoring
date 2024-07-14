@@ -97,7 +97,7 @@ export class ApexChartCoreComponent implements OnInit {
     fontFamily:'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji',
     fontSize:'10',
     fontWeight:600,
-    position: 'top',
+    position: 'bottom',
     labels: {
       colors: ['#4338CA', '#e20808'],
       useSeriesColors: false,
