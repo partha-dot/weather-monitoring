@@ -28,6 +28,7 @@
         "@fullcalendar/daygrid": "^6.0.3",
         "@fullcalendar/interaction": "^6.0.3",
         "@fullcalendar/timegrid": "^6.0.3",
+        "@types/highcharts": "^7.0.0",
         "apexcharts": "^3.48.0",
         "chart.js": "^3.3.2",
         "jsbarcode": "^3.11.5",

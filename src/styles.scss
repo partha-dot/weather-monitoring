@@ -163,3 +163,24 @@ $gutter: 1rem; //for primeflex grid system
   animation-delay: 0.8s;
 }
 
+.p-dialog .p-dialog-header {
+  border-bottom: 1px solid #ececec!important;
+  padding: 9px 19px!important;
+}
+.p-dialog .p-dialog-header .p-dialog-title {
+  font-weight: 800;
+  font-size: 16px;
+}
+
+// .p-datatable .p-datatable-tbody > tr > td {
+//   font-size: 13px;
+//   font-weight: 500;
+// }
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tbody > tr > td{
+  text-align: center;
+}
+.p-datatable .p-datatable-tbody > tr > td{
+  font-size: 11px;
+  font-weight: 500;
+}
