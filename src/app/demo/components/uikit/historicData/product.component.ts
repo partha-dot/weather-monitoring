@@ -22,6 +22,8 @@ import { Router } from '@angular/router';
   providers: [MessageService, ConfirmationService , DatePipe]
 })
 export class ProductComponent implements OnInit{
+
+  @ViewChild('dt') primeTable:Table
   cities: any[] | undefined;
   sourceProducts!: any[]
 
@@ -75,59 +77,46 @@ export class ProductComponent implements OnInit{
     // this.openNew();
     this.showDragandDrop=false;
     this.cols = [
-      // {
-      //     field: 'sl_no',
-      //     col: 'Sl No.'
-      // },
       {
           field: 'date',
-          col: 'Date'
+          header: 'Date',
+          width:'6rem'
       },
       {
           field: 'time',
-          col: 'Time'
+          header: 'Time',
+          // width:'5rem'
+
       },
       {
         field: 'device',
-        col: 'Device Name'
-      },
-      // {
-      //   field: 'device_name',
-      //   col: 'Device Name'
-      // }
-  ];
+        header: 'Device Name'
+      }
+    ];
     this.sourceProducts=[
-
-      {field: 'r', col:"Voltage R"},
-      {field: 'y', col:"Voltage Y"},
-      {field: 'b', col:"Voltage B"},
-      {field: 'r_y', col:"Voltage R_Y"},
-      {field: 'y_b', col:"Voltage Y-B"},
-      {field: 'b_r', col:"Voltage B-R"},
-      {field: 'curr1',col:"Current R"},
-      {field: 'curr2',col:"Current Y"},
-      {field: 'curr3',col:"Current B"},
-      {field: 'eng1+eng2+eng3',col:"Total Weather"},
-      {field: 'pf',col:"Average PF"},
-      {field: 'freq',col:"Frequency"},
-      {field: 'runhr',col:"Runhr"},
-      {field: 'totkw',col:"TotkW"},
-      {field: 'totkva',col:"TotkVA"},
-      {field: 'totkvar',col:"TotkVAr"}
+      {field: 'temperature', header:"Temparature", width:'5rem'},
+      {field: 'rainfall', header:"Rainfall", width:'5rem'},
+      {field: 'rainfall_cumulative', header:"Cummulative Rainfall", width:'5rem'},
+      {field: 'atm_pressure', header:"Atm Pressure", width:'5rem'},
+      {field: 'solar_radiation', header:"Solar Radiation", width:'5rem'},
+      {field: 'humidity', header:"Humidity", width:'5rem'},
+      {field: 'wind_speed',header:"Wind Speed", width:'5rem'},
+      {field: 'wind_direction',header:"Wind Direction", width:'5rem'}
     ]
 
     this.targetProducts = [
       {
         field: 'date',
-        col: 'Date'
+        header: 'Date',
+        width:'6rem'
     },
     {
         field: 'time',
-        col: 'Time'
+        header: 'Time'
     },
     {
       field: 'device',
-      col: 'Device Name'
+      header: 'Device Name'
     }
     ];
     this.user_type=localStorage.getItem('u_type')
@@ -180,72 +169,9 @@ const apiUrl = this.api.baseUrl;
 
   openNew() {
     this.cols = [];
-      console.log(this.targetProducts);
       this.showDragandDrop=false;
-      for(let i=0;i<this.targetProducts.length;i++){
-        this.cols.push(this.targetProducts[i])
-      }
-      debugger
-      console.log(this.cols);
-      if(this.cols.some(p => p.field == "r")){
-        this.r=true
-      }
-      if(this.cols.some(p => p.field == "y")){
-        this.y=true
-      }
-      if(this.cols.some(p => p.field == "b")){
-        this.b=true
-      }
-      if(this.cols.some(p => p.field == "r_y")){
-        this.r_y=true
-      }
-      if(this.cols.some(p => p.field == "y_b")){
-        this.y_b=true
-      }
-      if(this.cols.some(p => p.field == "b_r")){
-        this.b_r=true
-      }
-      if(this.cols.some(p => p.field == "curr1")){
-        this.curr1=true
-      }if(this.cols.some(p => p.field == "curr2")){
-        this.curr2=true
-      }if(this.cols.some(p => p.field == "curr3")){
-        this.curr3=true
-      }if(this.cols.some(p => p.field == "eng")){
-        this.eng=true
-      }if(this.cols.some(p => p.field == "pf")){
-        this.pf=true
-      }if(this.cols.some(p => p.field == "freq")){
-        this.freq=true
-      }if(this.cols.some(p => p.field == "runhr")){
-        this.runhr=true
-      }if(this.cols.some(p => p.field == "totkw")){
-        this.totkw=true
-      }if(this.cols.some(p => p.field == "totkva")){
-        this.totkva=true
-      }if(this.cols.some(p => p.field == "totkva")){
-        this.totkvar=true
-      }
-      // else{
-      //   this.r= false;
-      //   this.y= false;
-      //   this.b= false;
-      //   this.r_y= false;
-      //   this.y_b= false;
-      //   this.b_r= false;
-      //   this.curr1= false;
-      //   this.curr2= false;
-      //   this.curr3= false;
-      //   this.eng= false;
-      //   this.pf= false;
-      //   this.freq= false;
-      //   this.runhr= false;
-      //   this.totkw= false;
-      //   this.totkva= false;
-      //   this.totkvar= false;
-      // }
-      debugger
-
+      this.cols = this.targetProducts;
+      console.log(this.targetProducts);
   }
 
   deleteSelectedProducts() {
@@ -292,12 +218,12 @@ const apiUrl = this.api.baseUrl;
       this.submitted = true;
       this.selectedDevice;
       this.device=this.reportData.controls['d_id'].value.device;
-      this.fromDate=this.reportData.controls['fdate'].value;
-      this.toDate=this.reportData.controls['tdate'].value;
+      this.fromDate=this.datePipe.transform(this.reportData.controls['fdate'].value,'YYYY-MM-dd');
+      this.toDate=this.datePipe.transform(this.reportData.controls['tdate'].value,'YYYY-MM-dd');
       const credentials = {
         client_id:this.client_id,
-        start_date:this.reportData.controls['fdate'].value,
-        end_date:this.reportData.controls['tdate'].value,
+        start_date:this.datePipe.transform(this.reportData.controls['fdate'].value,'YYYY-MM-dd'),
+        end_date:this.datePipe.transform(this.reportData.controls['tdate'].value,'YYYY-MM-dd'),
         device:this.device,
         device_id:this.reportData.controls['d_id'].value.device_id
       };
@@ -311,7 +237,7 @@ const apiUrl = this.api.baseUrl;
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
 
       this.productDialog = false;
-      this.http.post(apiUrl+'/client/devices/weather_data', credentials,{ headers }).subscribe(
+      this.http.post(apiUrl+'/client/report/weather_data', credentials,{ headers }).subscribe(
         (response) => {
           this.spinner=false;
           console.log(response);
@@ -329,9 +255,10 @@ const apiUrl = this.api.baseUrl;
 
         },
         (error) => {
+          this.spinner=false;
         if(error.status=='401'){
           this.router.navigate(['/']);
-          debugger
+          // debugger
          }
         console.log(error.status);
           if(error.status==401){
@@ -343,6 +270,14 @@ const apiUrl = this.api.baseUrl;
 
   }
 
+  filterGlobal_secondary = ($event) =>{
+    let value = $event.target.value;
+    this.primeTable.filterGlobal(value,'contains')
+  }
+
+  getColumns = () =>{
+    return this.cols.map(el => el.field);
+  }
 
 
 

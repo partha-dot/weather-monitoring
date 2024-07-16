@@ -18,6 +18,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { CardModule } from 'primeng/card';
 import { ChartContentHolderComponent } from './core/chart-content-holder/chart-content-holder.component';
 import { FilterFormComponent } from './core/filter-form/filter-form.component';
+import { DateCalendarComponent } from './core/date-calendar/date-calendar.component';
+import { ApexChartCoreComponent } from './core/apex-chart-core/apex-chart-core.component';
 @NgModule({
 	imports: [
 		TabViewModule,
@@ -38,7 +40,7 @@ import { FilterFormComponent } from './core/filter-form/filter-form.component';
 		TabMenuModule,
         CardModule
 	],
-	declarations: [ChartsDemo1Component, ChartContentHolderComponent, FilterFormComponent],
+	declarations: [ChartsDemo1Component, ChartContentHolderComponent, FilterFormComponent, DateCalendarComponent, ApexChartCoreComponent],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class ChartsDemo1Module { }
