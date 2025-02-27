@@ -14,9 +14,13 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputTextModule } from "primeng/inputtext";
 import { PasswordModule } from "primeng/password";
+import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
 	imports: [
+        FileUploadModule,
+        DialogModule,
 		CommonModule,
 		FormsModule,
 		InvalidStateDemoRoutingModule,

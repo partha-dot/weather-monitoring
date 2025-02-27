@@ -41,6 +41,24 @@ export class AppMenuComponent implements OnInit {
                         },
 
                     ]
+                },{
+                    label: 'Reports',
+                    items: [
+                            {
+                                label: 'Daily',
+                                icon: 'pi pi-clock',
+                                routerLink: ['/app/outlet/DlyRep']
+                            },
+                            {
+                                label: 'Monthly',
+                                icon: 'pi pi-calendar',
+                                routerLink: ['/app/outlet/monthRep']
+                            },
+                            {
+                                label: 'Yearly',
+                                icon: 'pi pi-calendar-minus',
+                                routerLink: ['/app/outlet/yearRep']
+                            },]
                 }
             ]
         }
@@ -124,6 +142,24 @@ export class AppMenuComponent implements OnInit {
                         //     },]
                         // }
                     ]
+                },{
+                    label: 'Reports',
+                    items:[
+                        {
+                            label: 'Daily',
+                            icon: 'pi pi-clock',
+                            routerLink: ['/app/outlet/DlyRep']
+                        },
+                        {
+                            label: 'Monthly',
+                            icon: 'pi pi-calendar',
+                            routerLink: ['/app/outlet/monthRep']
+                        },
+                        {
+                            label: 'Yearly',
+                            icon: 'pi pi-calendar-minus',
+                            routerLink: ['/app/outlet/yearRep']
+                        },]
                 }
             ]
             }

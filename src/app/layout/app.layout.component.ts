@@ -69,8 +69,8 @@ export class AppLayoutComponent implements OnDestroy , OnInit{
                             router.events.subscribe((val) => {
                             console.log(val instanceof NavigationEnd)
                             if (this.router.url.includes('/app/outlet/device_m') || this.router.url.includes('/app/outlet/device_s')||
-                             this.router.url.includes('/app/outlet/org') || this.router.url.includes('/app/outlet/usr')||
-                             this.router.url.includes('/app/outlet/screen_Setting')) {
+                             this.router.url.includes('/app/outlet/org') || this.router.url.includes('/app/outlet/usr')||this.router.url.includes('/app/outlet/io')||
+                             this.router.url.includes('/app/outlet/profile')) {
                                 this.hideTopMenu=true;
                               }
                               else{
@@ -80,8 +80,9 @@ export class AppLayoutComponent implements OnDestroy , OnInit{
                             if (this.router.url.includes('/app/outlet/weather')||
                             this.router.url.includes('/app/outlet/weather_devInfo')||
                             this.router.url.includes('/app/outlet/weather_chart')||
-                            // this.router.url.includes('/app/outlet/alert') ||
-                            // this.router.url.includes('/app/outlet/schedul') ||
+                            this.router.url.includes('/app/outlet/dlyRep') ||
+                            this.router.url.includes('/app/outlet/yearRep') ||
+                            this.router.url.includes('/app/outlet/monthRep') ||
                             this.router.url.includes('/app/outlet/report')) {
                                 this.show_weather=true;
                                 this.show_dg=false;

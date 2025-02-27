@@ -21,6 +21,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { MenuModule } from 'primeng/menu';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @NgModule({
     declarations: [
@@ -30,7 +32,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
         AppMenuComponent,
         AppSidebarComponent,
         AppLayoutComponent,
-        
+
     ],
     imports: [
         TabMenuModule,
@@ -48,7 +50,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
         RouterModule,
         AppConfigModule,
         CalendarModule,
-        DialogModule
+        DialogModule,
+        MenuModule,
+        TieredMenuModule
     ],
     exports: [AppLayoutComponent],
     schemas: [

@@ -10,21 +10,38 @@ import { DatePipe } from '@angular/common';
 import { AuthenticationService } from 'src/app/demo/service/authentication.service';
 import {
     ChartComponent,
-    ApexNonAxisChartSeries,
-    ApexResponsive,
+    ApexAxisChartSeries,
     ApexChart,
+    ApexXAxis,
+    ApexDataLabels,
+    ApexStroke,
+    ApexMarkers,
+    ApexYAxis,
+    ApexGrid,
+    ApexTitleSubtitle,
+    ApexLegend
   } from "ng-apexcharts";
+
+  export type ChartOptions = {
+    series: ApexAxisChartSeries;
+    chart: ApexChart;
+    xaxis: ApexXAxis;
+    stroke: ApexStroke;
+    dataLabels: ApexDataLabels;
+    markers: ApexMarkers;
+    tooltip: any; // ApexTooltip;
+    yaxis: ApexYAxis;
+    grid: ApexGrid;
+    legend: ApexLegend;
+    title: ApexTitleSubtitle;
+  };
+
 
 import { MessagesDemoComponent } from '../alert/messagesdemo.component';
 import { webSocket, WebSocketSubject  } from 'rxjs/webSocket';
 import { WebsocketService } from 'src/app/demo/service/web-socket.service';
 import { Router } from '@angular/router';
-  export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-  };
+
 
 
   export interface WeatherData {
@@ -50,7 +67,7 @@ import { Router } from '@angular/router';
 @Component({
     selector:"app-chartsdemo",
     templateUrl: './chartsdemo.component.html',
-    styleUrls:['./chartsdemo.component.css'],
+    styleUrls:['./chartsdemo.component.scss'],
 
   providers: [MessageService, ConfirmationService, DatePipe]
 })
@@ -153,7 +170,8 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     data: any;
     selectedAlert:any
     alert_type:string=''
-    client_id:number=(+localStorage.getItem('c_id'))
+    client_id:number=(+localStorage.getItem('c_id'));
+
     cities2:any=[
     {
       "unit_name": "Single Phase",
@@ -180,26 +198,30 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
     selectedDevice:any;
     loginType:string=localStorage.getItem('loginType');
     WeatherData:any=[]
-    avgPF:number;
-    m_e1:number=0;
-    m_e2:number=0;
-    m_e3:number=0;
 
-    td_e1:number=0;
-    td_e2:number=0;
-    td_e3:number=0;
+    atm_pressure:number=0;
+    humidity:number=0;
+    rainfall:number=0;
+    rainfall_cumulative:number=0;
+    solar_radiation:number=0;
+    temperature:number=0;
+    wind_direction:number=0;
+    wind_speed:number=0;
 
-    ye_e1:number=0;
-    ye_e2:number=0;
-    ye_e3:number=0;
-
-    tot_e1:number=0;
-    tot_e2:number=0;
-    tot_e3:number=0;
-    wsData:WeatherData;
-    weeklyPaiData:any[]=[];
+    wsData:any;
+    livechart:any[]=[];
+    livechartForGraph:any[]=[];
     weekdayName: any[]=[];
-    weekData: any[]=[];
+
+    humidity1: any[]=[];
+    rainfall1: any[]=[];
+    rainfall_cum: any[]=[];
+    solar_radiation1: any[]=[];
+    temperature1: any[]=[];
+    wind_direction1: any[]=[];
+    atm_pressure1: any[]=[];
+    wind_speed1: any[]=[];
+    sig_st:any
     constructor(private router: Router,private datePipe: DatePipe,public layoutService: LayoutService, private authservice:AuthenticationService,
 
 
@@ -207,7 +229,6 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
 
         private messageService: MessageService, private confirmationService: ConfirmationService,private api:ApiService) {
         this.subscription = this.layoutService.configUpdate$.subscribe(config => {
-            this.initCharts();
         });
 
     }
@@ -233,7 +254,6 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
       ];
       this.activeItem = this.items[0];
         // //debugger
-        // this.initCharts();
         this.getDevice();
 
         // setInterval(()=>{
@@ -250,78 +270,77 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
       private updateDateTime(): void {
         this.currentDateTime = new Date();
       }
+     getWindDirection(degrees) {
+        const directions = [
+            "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+            "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"
+        ];
+
+        // Normalize the degrees to a value between 0 and 360
+        const normalizedDegrees = degrees % 360;
+
+        // Calculate the index for the directions array
+        const index = Math.round(normalizedDegrees / 22.5) % 16;
+
+        return directions[index];
+    }
+
+    // Example usage
+    //let wind_direction_val = 22.3;
+//let wind_direction = getWindDirection(wind_direction_val);
+   // console.log(wind_direction);  // Output: "NE"
+
     connectToWebSocket(c_id,d_id,d_name) {
       this.spinner=true;
       this.websocketSubscription = this.websocketService.connect(c_id,d_id,d_name)
         .subscribe(
           (message) => {
+            this.spinner=false;
             console.log('Received message:', message);
             const jsonString = message
             const AllData: any = JSON.parse(jsonString);
             console.log(AllData);
             this.wsData=AllData.lastdata;
-            const weatherData: WeatherData = AllData.lastdata;
-            // this.weeklyPaiData = AllData.lastdata_weekdata;
-            this.spinner=false;
-            // if(this.weeklyPaiData?.length>0){
-            // this.initCharts();
+            this.WeatherData = AllData.lastdata;
+            this.livechart = AllData.last10row;
+            this.livechartForGraph = AllData.last10row;
+            if(this.WeatherData){
+                this.lastUpdateTime=''
+                this.lastUpdateTime=this.convertToISTDateTime(this.WeatherData.created_at)
+                console.log(this.lastUpdateTime);
+            }
+            if(this.livechart?.length>0){
+            this.livechartForGraph.sort((a, b) => {
+                    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+                  });
+            this.initCharts();
+            }
+            else{
+            this.initCharts();
+            }
+            // if(this.WeatherData){
+            //     this.sig_st=this.convertToPercentage(this.WeatherData.tw).toFixed(0-2)
             // }
-            this.m_e1=0
-            this.m_e2=0
-            this.m_e3=0
-            this.avgPF=0
-            console.log(weatherData);
-            console.log(this.weeklyPaiData);
-            this.WeatherData=weatherData
-            const m_e1=this.WeatherData.e1 - this.WeatherData.e1_past_month
-            const m_e2=this.WeatherData.e2 - this.WeatherData.e2_past_month
-            const m_e3=this.WeatherData.e3 - this.WeatherData.e3_past_month
-            this.m_e1=parseFloat(m_e1?m_e1.toFixed(2):'0');
-            this.m_e2=parseFloat(m_e2?m_e2.toFixed(2):'0');
-            this.m_e3=parseFloat(m_e3?m_e3.toFixed(2):'0');
-
-            this.td_e1=0
-            this.td_e2=0
-            this.td_e3=0
-            const td_e1=this.WeatherData.e1 - this.WeatherData.e1_yesterday
-            const td_e2=this.WeatherData.e2 - this.WeatherData.e2_yesterday
-            const td_e3=this.WeatherData.e3 - this.WeatherData.e3_yesterday
-            this.td_e1=parseFloat(td_e1?td_e1.toFixed(2):'0');
-            this.td_e2=parseFloat(td_e2?td_e2.toFixed(2):'0');
-            this.td_e3=parseFloat(td_e3?td_e3.toFixed(2):'0');
-
-            this.ye_e1=0
-            this.ye_e2=0
-            this.ye_e3=0
-            const ye_e1=this.WeatherData.e1 - this.WeatherData.e1_past_year
-            const ye_e2=this.WeatherData.e2 - this.WeatherData.e2_past_year
-            const ye_e3=this.WeatherData.e3 - this.WeatherData.e3_past_year
-            this.ye_e1=parseFloat(ye_e1?ye_e1.toFixed(2):'0');
-            this.ye_e2=parseFloat(ye_e2?ye_e2.toFixed(2):'0');
-            this.ye_e3=parseFloat(ye_e3?ye_e3.toFixed(2):'0');
-
-            this.tot_e1=0
-            this.tot_e2=0
-            this.tot_e3=0
-            // const tot_e1=this.WeatherData.e1 - this.WeatherData.e1_past_month
-            // const tot_e2=this.WeatherData.e2 - this.WeatherData.e2_past_month
-            // const tot_e3=this.WeatherData.e3 - this.WeatherData.e3_past_month
-            this.tot_e1=parseFloat(this.WeatherData?.e1?this.WeatherData?.e1.toFixed(2):0);
-            this.tot_e2=parseFloat(this.WeatherData?.e2?this.WeatherData?.e2.toFixed(2):0);
-            this.tot_e3=parseFloat(this.WeatherData?.e3?this.WeatherData?.e3.toFixed(2):0);
-            this.avgPF=this.WeatherData.pf1+this.WeatherData.pf2+this.WeatherData.pf3
-            this.avgPF=parseFloat(this.avgPF?this.avgPF.toFixed(2):'0');
+            this.atm_pressure=parseFloat(this.wsData?.atm_pressure?this.wsData?.atm_pressure.toFixed(2):0);
+            this.humidity=parseFloat(this.wsData?.humidity?this.wsData?.humidity.toFixed(2):0);
+            this.rainfall=parseFloat(this.wsData?.rainfall?this.wsData?.rainfall.toFixed(2):0);
+            this.rainfall_cumulative=parseFloat(this.wsData?.rainfall_cumulative?this.wsData?.rainfall_cumulative.toFixed(2):0);
+            this.solar_radiation=parseFloat(this.wsData?.solar_radiation?this.wsData?.solar_radiation.toFixed(2):0);
+            this.temperature=parseFloat(this.wsData?.temperature?this.wsData?.temperature.toFixed(2):0);
+            this.wind_direction=parseFloat(this.wsData?.wind_direction?this.wsData?.wind_direction.toFixed(2):0);
+            this.wind_speed=parseFloat(this.wsData?.wind_speed?this.wsData?.wind_speed.toFixed(2):0);
+            this.wind_speed=this.wind_speed/60;
             this.spinner=false;
             // Handle received message here
           },
           (error) => {
-        if(error.status=='401'){
-          this.router.navigate(['/']);
-          debugger
-         }
-        console.log(error.status);
-            this.spinner=false;
-            console.error('WebSocket error:', error);
+                if(error.status=='401'){
+                this.router.navigate(['/']);
+                debugger
+                }
+                console.log(error.status);
+                this.spinner=false;
+                console.error('WebSocket error:', error);
           },
           () => {
             this.spinner=false;
@@ -330,6 +349,15 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
         );
 
     }
+    convertToPercentage(value: number): number {
+        if (value < 0) {
+          return 0;
+        } else if (value > 30) {
+          return 100;
+        } else {
+          return (value / 30) * 100;
+        }
+      }
     // ngOnDestroy() {
     //   this.websocketSubscription.unsubscribe();
     //   if (this.subscription) {
@@ -538,66 +566,158 @@ export class ChartsDemoComponent implements OnInit, OnDestroy {
 
     initCharts() {
       this.weekdayName=[];
-      this.weekData=[];
-      this.weeklyPaiData.forEach(e=>{
-        e.day=this.getWeekdayName(e.date);
-        this.weekdayName.push(this.getWeekdayName(e.date));
-        this.weekData.push(Number(e.e1_diff+e.e2_diff+e.e3_diff));
+      this.humidity1=[];
+      this.humidity1=[];
+      this.rainfall1=[];
+      this.rainfall_cum=[];
+      this.solar_radiation1=[];
+      this.temperature1=[];
+      this.wind_direction1=[];
+      this.wind_speed1=[];
+      this.atm_pressure1=[];
+      this.livechartForGraph?.forEach(e=>{
+        // e.day=this.getWeekdayName(e.date);
+        this.weekdayName?.push(e.time);
+        this.humidity1?.push(Number(e.humidity));
+        this.rainfall1?.push(Number(e.rainfall));
+        this.rainfall_cum?.push(Number(e.rainfall_cumulative));
+        this.solar_radiation1?.push(Number(e.solar_radiation));
+        this.temperature1?.push(Number(e.temperature));
+        this.wind_direction1?.push(Number(e.wind_direction));
+        this.atm_pressure1?.push(Number(e.atm_pressure));
+        this.wind_speed1?.push(Number(e.wind_speed));
       })
-      if(this.weekdayName.length>0 && this.weekData.length>0){
-        console.log(this.weekdayName,this.weekData);
+
+        console.log(this.weekdayName);
+        console.log(this.temperature1,);
+        console.log(this.humidity1);
+        console.log(this.wind_direction1);
+        console.log(this.atm_pressure1);
+        console.log(this.wind_speed1);
+        console.log(this.rainfall1);
+        console.log(this.solar_radiation1);
+
 
         this.chartOptions = {
-            series: this.weekData,
+            series: [
+              {
+                name: "Temperature",
+                data: this.temperature1
+              },
+              {
+                name: "Humidity",
+                data: this.humidity1
+              },
+              {
+                name: "Atm Pressure",
+                data: this.atm_pressure1
+              },
+              {
+                name: "Wind Speed",
+                data: this.wind_speed1
+              }
+              ,
+              {
+                name: "Wind Direction",
+                data: this.wind_direction1
+              }
+              ,
+              {
+                name: "Solar Radiation",
+                data: this.solar_radiation1
+              }
+              ,
+              {
+                name: "Rainfall",
+                data: this.rainfall1
+              },
+              {
+                name: "Rainfall Cumultive",
+                data: this.rainfall_cum
+              }
+            ],
             chart: {
-            //   width: 480,
-              type: "pie"
+              height: 350,
+              type: "line"
             },
-            labels:this.weekdayName,
-
-            responsive: [
+            dataLabels: {
+              enabled: false
+            },
+            // stroke: {
+            //   width: 5,
+            //   curve: "straight",
+            //   dashArray: [0, 8, 5]
+            // },
+            title: {
+              text: "Live Chart",
+              align: "left"
+            },
+            // legend: {
+            //   tooltipHoverFormatter: function(val, opts) {
+            //     return (
+            //       val +
+            //       " - <strong>" +
+            //       opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] +
+            //       "</strong>"
+            //     );
+            //   }
+            // },
+            markers: {
+              size: 0,
+              hover: {
+                sizeOffset: 6
+              }
+            },
+            xaxis: {
+              labels: {
+                trim: false
+              },
+              categories: this.weekdayName
+            //   [
+            //     "01 Jan",
+            //     "02 Jan",
+            //     "03 Jan",
+            //     "04 Jan",
+            //     "05 Jan",
+            //     "06 Jan",
+            //     "07 Jan",
+            //     "08 Jan",
+            //     "09 Jan",
+            //     "10 Jan",
+            //     "11 Jan",
+            //     "12 Jan"
+            //   ]
+            },
+            tooltip: {
+              y: [
                 {
-                  breakpoint: 1349,
-                  options: {
-                    // chart: {
-                    //   width: 480
-                    // },
-                    legend: {
-                      position: "bottom"
-                    }
+                  title: {
+                    // formatter: function(val) {
+                    //   return val + " (mins)";
+                    // }
+                  }
+                },
+                {
+                  title: {
+                    // formatter: function(val) {
+                    //   return val + " per session";
+                    // }
+                  }
+                },
+                {
+                  title: {
+                    // formatter: function(val) {
+                    //   return val;
+                    // }
                   }
                 }
               ]
-
-          };
-      }
-      else{
-        console.log(this.weekdayName,this.weekData);
-
-        this.chartOptions = {
-            series: [100],
-            chart: {
-            //   width: 480,
-              type: "pie"
             },
-            labels:['Sunday'],
-
-            responsive: [
-                {
-                  breakpoint: 1349,
-                  options: {
-                    // chart: {
-                    //   width: 480
-                    // },
-                    legend: {
-                      position: "bottom"
-                    }
-                  }
-                }
-              ]
-
+            grid: {
+              borderColor: "#f1f1f1"
+            }
           };
-      }
+
 
 
 

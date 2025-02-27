@@ -58,7 +58,12 @@ export class LoginComponent implements OnInit{
               const data=response.data;
               const userdata=data.user_data;
               console.log(userdata);
-
+                if(userdata.user_type=='U'){
+                    localStorage.setItem('ORG_NAME',userdata.organization_name);
+                }
+                else if(userdata.user_type=='C'){
+                    localStorage.setItem('ORG_NAME',userdata.client_name);
+                }
               this.apiService.token=data.token;
               localStorage.setItem('token',data.token);
               localStorage.setItem('user',userdata.user_name);
@@ -66,7 +71,7 @@ export class LoginComponent implements OnInit{
               localStorage.setItem('email',userdata.user_email);
               localStorage.setItem('u_type',userdata.user_type);
               localStorage.setItem('c_id',userdata.client_id);
-
+              localStorage.setItem('userData', JSON.stringify(userdata));
               this.router.navigate(['/app/outlet/weather']);
             }
             // q1e3

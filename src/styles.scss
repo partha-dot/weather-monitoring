@@ -18,7 +18,7 @@ $gutter: 1rem; //for primeflex grid system
   /* Firefox */
   * {
     scrollbar-width: 2px;
-    scrollbar-color: #154587 #ffffff;
+    scrollbar-color: #689F38 #ffffff;
   }
 
   /* Chrome, Edge, and Safari */
@@ -31,12 +31,12 @@ $gutter: 1rem; //for primeflex grid system
   }
 
   *::-webkit-scrollbar-thumb {
-    background-color: #5555c0;
+    background-color: #049f9f;
     border-radius: 10px;
     border: 3px solid #ffffff;
   }
 
-  
+
 .spinner_overlay {
     position: fixed;
     left: 0;
@@ -51,9 +51,9 @@ $gutter: 1rem; //for primeflex grid system
     align-items: center;
 }
   i{color: #f6f6f6;}
-  
-  
-  
+
+
+
   select {
     appearance: none;
     /* safari */
@@ -68,10 +68,10 @@ $gutter: 1rem; //for primeflex grid system
     color: #000;
     cursor: pointer;
   }
-  
 
 
-  
+
+
 
 
 /* NO BORDER SPINNER */
@@ -80,7 +80,7 @@ $gutter: 1rem; //for primeflex grid system
   top: 50%; /* Position from the top */
   left: 50%; /* Position from the left */
   transform: translate(-50%, -50%); /* Centering trick */
-        
+
   padding: 20px; /* Padding for content */
   --size: 20px;
 
@@ -115,7 +115,7 @@ $gutter: 1rem; //for primeflex grid system
   /* border-radius: 20px; */
   border-radius: var(--size);
 
-  background-color: #ffd700;
+  background-color: #ffdd00;
   animation: wave 2s infinite ease-in-out;
 }
 
@@ -128,13 +128,13 @@ $gutter: 1rem; //for primeflex grid system
   25% {
     /* height: 100px; */
     height: calc(var(--size) * 5);
-    background-color: #fc00ff;
+    background-color: #08df37;
   }
 
   50% {
     /* height: 20px; */
     height: var(--size);
-    background-color: #9c73f8;
+    background-color: #a4ff2e;
   }
 
   /* 100% {
@@ -183,4 +183,45 @@ $gutter: 1rem; //for primeflex grid system
 .p-datatable .p-datatable-tbody > tr > td{
   font-size: 11px;
   font-weight: 500;
+}
+
+.p-tabmenu-nav {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    flex-wrap: nowrap;
+    height: 45px!important;
+}
+
+
+/* CSS */
+.button-62 {
+  background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.button-62:not([disabled]):focus {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.button-62:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }

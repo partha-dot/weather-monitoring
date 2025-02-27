@@ -14,7 +14,9 @@ export class WebsocketService {
   device_id:number
   device:string
   resData:string
-  private baseURL:string="ws://13.49.80.167:8000/api/ws_routes/ws/WMS/"
+//   private baseURL:string="ws://13.49.80.167:8001/api/ws_routes/ws/WMS/"
+  private baseURL:string="wss://wsapi.iotblitz.com/api/ws_routes/ws/WMS/"
+
   constructor(private router: Router,private api:ApiService,private http:HttpClient) { }
 
   public connect(client_id,d_id,d_name): Observable<any> {
@@ -83,6 +85,19 @@ export class WebsocketService {
         this.resData=res.data;
           console.log(response);
 
+      },
+      (error) => {
+
+            if(error.status=='401'){
+            this.router.navigate(['/']);
+
+            }
+            else{
+                return
+            }
+
+        console.log(error.status);
+        console.error(error);
       })
     }
   }

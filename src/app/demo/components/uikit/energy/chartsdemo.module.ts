@@ -15,9 +15,12 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { TableModule } from 'primeng/table';
+
 
 @NgModule({
 	imports: [
+        TableModule,
 		TabViewModule,
 		DropdownModule,
 		CommonModule,
@@ -34,7 +37,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 		InputSwitchModule,
 		NgApexchartsModule,
 		TabMenuModule
-		
+
 	],
 	declarations: [ChartsDemoComponent],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

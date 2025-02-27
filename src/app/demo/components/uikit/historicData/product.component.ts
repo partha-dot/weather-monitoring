@@ -209,7 +209,17 @@ const apiUrl = this.api.baseUrl;
       this.submitted = false;
   }
 
+formatDate(dt){
+  const date = new Date(dt);
+const year = date.getFullYear();
+const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+const day = String(date.getDate()).padStart(2, '0');
+const formattedDate = `${year}-${month}-${day}`;
+console.log(formattedDate); // Output: 2024-12-29
 
+return formattedDate
+
+}
   saveProduct() {
     this.fromDate='';
     this.toDate='';
@@ -218,12 +228,18 @@ const apiUrl = this.api.baseUrl;
       this.submitted = true;
       this.selectedDevice;
       this.device=this.reportData.controls['d_id'].value.device;
-      this.fromDate=this.datePipe.transform(this.reportData.controls['fdate'].value,'YYYY-MM-dd');
-      this.toDate=this.datePipe.transform(this.reportData.controls['tdate'].value,'YYYY-MM-dd');
+
+      this.toDate=this.formatDate(this.reportData.controls['tdate'].value);
+      this.fromDate=this.formatDate(this.reportData.controls['fdate'].value);
+      console.log(this.reportData.controls['fdate'].value);
+      console.log(this.fromDate);
+      console.log(this.reportData.controls['tdate'].value);
+      console.log(this.toDate);
+
       const credentials = {
         client_id:this.client_id,
-        start_date:this.datePipe.transform(this.reportData.controls['fdate'].value,'YYYY-MM-dd'),
-        end_date:this.datePipe.transform(this.reportData.controls['tdate'].value,'YYYY-MM-dd'),
+        start_date:this.formatDate(this.reportData.controls['fdate'].value),
+        end_date:this.formatDate(this.reportData.controls['tdate'].value),
         device:this.device,
         device_id:this.reportData.controls['d_id'].value.device_id
       };
